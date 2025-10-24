@@ -21,6 +21,9 @@
     }
   </script>
 
+
+   <link rel="icon" type="image/png" href="/img/logo1.png">
+
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
@@ -79,7 +82,7 @@
               <li><a href="/categorias/tec.html" class="block px-4 py-2 hover:bg-gray-50">Ingeniería y tecnología</a></li>
               <li><a href="/categorias/derecho.html" class="block px-4 py-2 hover:bg-gray-50">Derecho y ciencias políticas</a></li>
               <li><a href="/categorias/ciencia.html" class="block px-4 py-2 hover:bg-gray-50">Ciencia</a></li>
-              <li><a href="/categorias/psicologia.html" class="block px-4 py-2 hover:bg-gray-50">Psicologia y educación</a></li>
+              <li><a href="/categorias/psicologia.html" class="block px-4 py-2 hover:bg-gray-50">Psicologia</a></li>
             </ul>
           </div>
 
@@ -100,31 +103,37 @@
           </ul>
         </li>
 
+       
         <li>
-          <a href="#" class="group relative px-1 py-1 font-semibold">
-            Hola
-            <span class="pointer-events-none absolute left-0 -bottom-1 h-[2px] w-full scale-x-0 bg-black origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="group relative px-1 py-1 font-semibold">
+          <a href="/reservas.html" class="group relative px-1 py-1 font-semibold">
             Reservas
             <span class="pointer-events-none absolute left-0 -bottom-1 h-[2px] w-full scale-x-0 bg-black origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
           </a>
         </li>
         <li>
-          <a href="#" class="group relative px-1 py-1 font-semibold">
-            Sobre nosotros
+          <a href="/faqs.html" class="group relative px-1 py-1 font-semibold">
+            FAQs
             <span class="pointer-events-none absolute left-0 -bottom-1 h-[2px] w-full scale-x-0 bg-black origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
           </a>
         </li>
       </ul>
 
-      <!-- Iconos derecha -->
-      <div class="hidden md:flex items-center gap-3 ml-3">
-        <a href="notificaciones.html" class="inline-flex items-center justify-center w-9 h-9 rounded-full hover:bg-gray-100 transition" aria-label="Notificaciones">
-          <i class="fa-regular fa-bell text-[18px]"></i>
-        </a>
+      <!-- Iconos a la derecha (solo desktop) -->
+
+       <div class="hidden md:flex items-center gap-3 ml-3">
+<a id="notifBtn" class="inline-flex items-center justify-center w-9 h-9 rounded-full hover:bg-gray-100 transition relative cursor-pointer">
+  <i class="fa-regular fa-bell text-[20px]"></i>
+  <span id="notifBadge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs px-1.5 rounded-full hidden"></span>
+</a>
+
+<!-- Popup -->
+<div id="notifPopup"
+  class="hidden absolute right-12 mt-36 w-64 bg-white shadow-xl rounded-xl border border-gray-100 p-4 text-sm z-50">
+  <p class="font-semibold mb-2">Notificaciones</p>
+  <div id="notifContent" class="space-y-2 text-gray-700"></div>
+</div>
+
+      
         <a href="/profile.html" class="inline-flex items-center justify-center w-9 h-9 rounded-full hover:bg-gray-100 transition" aria-label="Cuenta">
           <i class="fa-regular fa-user text-[20px]"></i>
         </a>
@@ -484,7 +493,7 @@
           <ul class="space-y-2">
             <li><a href="#" class="text-sm text-slate-700 hover:text-slate-900 hover:underline underline-offset-4">Inicio</a></li>
             <li><a href="#" class="text-sm text-slate-700 hover:text-slate-900 hover:underline underline-offset-4">Categorías</a></li>
-            <li><a href="#" class="text-sm text-slate-700 hover:text-slate-900 hover:underline underline-offset-4">Reservas</a></li>
+            <li><a href="/reservas.html" class="text-sm text-slate-700 hover:text-slate-900 hover:underline underline-offset-4">Reservas</a></li>
             <li><a href="#" class="text-sm text-slate-700 hover:text-slate-900 hover:underline underline-offset-4">Ayuda</a></li>
           </ul>
         </div>
@@ -591,7 +600,7 @@
               </div>
 
               <div class="col-span-2 flex flex-wrap items-center gap-3 mt-2">
-                <button class="inline-flex items-center gap-2 px-4 h-11 rounded-lg bg-indigo-900 text-white hover:opacity-90 transition">
+                <button class="btn-reservar inline-flex items-center gap-2 px-4 h-11 rounded-lg bg-indigo-900 text-white hover:opacity-90 transition">
                   <i class="fa-solid fa-book-open"></i>
                   Reservar
                 </button>
