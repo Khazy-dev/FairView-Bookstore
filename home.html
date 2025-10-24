@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Home • FairView</title>
- 
+
   <!-- Fuente Poppins desde Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 
@@ -28,6 +28,7 @@
     }
   </script>
 
+  <link rel="icon" type="image/png" href="img/logo1.png">
   <!-- Iconos de Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
@@ -121,23 +122,17 @@
         </li>
 
         <!-- Otros enlaces -->
+       
         <li>
-          <a href="#" class="group relative px-1 py-1 font-semibold">
-            Hola
-            <span
-              class="pointer-events-none absolute left-0 -bottom-1 h-[2px] w-full scale-x-0 bg-black origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="group relative px-1 py-1 font-semibold">
+          <a href="/reservas.html" class="group relative px-1 py-1 font-semibold">
             Reservas
             <span
               class="pointer-events-none absolute left-0 -bottom-1 h-[2px] w-full scale-x-0 bg-black origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
           </a>
         </li>
         <li>
-          <a href="#" class="group relative px-1 py-1 font-semibold">
-            Sobre nosotros
+          <a href="faqs.html" class="group relative px-1 py-1 font-semibold">
+            FAQs
             <span
               class="pointer-events-none absolute left-0 -bottom-1 h-[2px] w-full scale-x-0 bg-black origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
           </a>
@@ -145,12 +140,22 @@
       </ul>
 
       <!-- Iconos a la derecha (solo desktop) -->
-      <div class="hidden md:flex items-center gap-3 ml-3">
-        <a href="notificaciones.html"
-          class="inline-flex items-center justify-center w-9 h-9 rounded-full hover:bg-gray-100 transition"
-          aria-label="Notificaciones">
-          <i class="fa-regular fa-bell text-[18px]"></i>
-        </a>
+
+       <div class="hidden md:flex items-center gap-3 ml-3">
+<a id="notifBtn" class="inline-flex items-center justify-center w-9 h-9 rounded-full hover:bg-gray-100 transition relative cursor-pointer">
+  <i class="fa-regular fa-bell text-[20px]"></i>
+  <span id="notifBadge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs px-1.5 rounded-full hidden"></span>
+</a>
+
+<!-- Popup -->
+<div id="notifPopup"
+  class="hidden absolute right-12 mt-36 w-64 bg-white shadow-xl rounded-xl border border-gray-100 p-4 text-sm z-50">
+  <p class="font-semibold mb-2">Notificaciones</p>
+  <div id="notifContent" class="space-y-2 text-gray-700"></div>
+</div>
+
+      
+       
         <a href="profile.html"
           class="inline-flex items-center justify-center w-9 h-9 rounded-full hover:bg-gray-100 transition"
           aria-label="Cuenta">
@@ -167,16 +172,108 @@
   <main class="max-w-[1400px] mx-auto px-3 md:px-6 py-12">
     <!-- ============================= HERO ============================= -->
     <!-- Banner de bienvenida con imagen y copy corto -->
-    <section class="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 mt-10">
-      <div class="relative overflow-hidden rounded-2xl bg-[#e8dacc] flex items-center gap-6 p-6 sm:p-8">
-        <img src="img/banner2.png" alt="Banner books"
-          class="hidden sm:block w-48 sm:w-56 md:w-64 rounded-lg object-cover">
-        <div class="flex-1">
-          <h2 class="mt-2 text-2xl sm:text-3xl font-extrabold text-ink">Descubre tus próximos favoritos</h2>
-          <p class="mt-2 text-gray-700 max-w-xl">Explorá lo mejor en desarrollo, hábitos, negocios y más.</p>
-        </div>
-      </div>
-    </section>
+   <!-- ============================= HERO 3D (Desktop + Mobile) ============================= -->
+<section id="hero3d" class="rounded-2xl relative w-full h-[80vh] overflow-hidden bg-[#0e0d0d] flex flex-col items-center justify-center mt-6">
+
+  <!-- Canvas 3D -->
+  <div id="bookScene" class="absolute inset-0"></div>
+
+  <!-- Texto superpuesto -->
+  <div class="relative z-10 text-center text-white px-6">
+    <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-3">Explora tu siguiente historia</h1>
+    <p class="max-w-xl mx-auto text-gray-300 text-lg mb-6">
+      Descubre, reserva y vive la experiencia de leer de forma interactiva.
+    </p>
+  </div>
+</section>
+
+<!-- ========== LIBRERÍAS NECESARIAS ========== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/loaders/GLTFLoader.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<script>
+  // Activar Three.js en todas las pantallas (desktop y mobile)
+  let scene, camera, renderer, book;
+  const container = document.getElementById('bookScene');
+
+  init();
+  animate();
+
+  function init() {
+    scene = new THREE.Scene();
+
+    // Cámara
+    camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 100);
+    camera.position.set(0, 1, 3);
+
+    // Renderizador
+    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    container.appendChild(renderer.domElement);
+
+    // Luces suaves
+    const ambient = new THREE.AmbientLight(0xffffff, 1.2);
+    const point = new THREE.PointLight(0xffffff, 1);
+    point.position.set(2, 3, 3);
+    scene.add(ambient, point);
+
+    // Cargar modelo
+   const loader = new THREE.GLTFLoader();
+loader.load(
+  'models/tome_v1/scene.gltf',
+  gltf => {
+    book = gltf.scene;
+
+    // ajuste visual: tamaño, posición y orientación
+    book.scale.set(1.1, 1.1, 1.1);
+    book.rotation.y = Math.PI / 4;
+    book.position.set(0, 7, -1); //  (más negativo = más abajo)
+    scene.add(book);
+  },
+  undefined,
+  err => console.error('Error cargando modelo:', err)
+);
+
+// camara más centrada y ligeramente más alta
+camera.position.set(0, 0.3, 3);
+
+
+    // Responsividad
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  }
+
+  // Animación base + flotación
+  let floatOffset = 0;
+  function animate() {
+    requestAnimationFrame(animate);
+    if (book) {
+      book.rotation.y += 0.004;
+      floatOffset += 0.02;
+      book.position.y = Math.sin(floatOffset) * 0.2; // efecto de levitación
+    }
+    renderer.render(scene, camera);
+  }
+
+  // Animación de scroll
+  gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.create({
+    trigger: "#hero3d",
+    start: "top top",
+    end: "bottom top",
+    scrub: true,
+    onUpdate: self => {
+      if (book) book.rotation.x = self.progress * Math.PI * 0.4;
+    }
+  });
+</script>
+
 
     <!-- ============================= POPULARES ============================= -->
     <!--
@@ -186,7 +283,7 @@
     <section class="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 mt-10">
       <div class="flex items-center justify-between">
         <h3 class="text-2xl font-extrabold text-[#443c67]">Populares</h3>
-
+      </div>
 
       <div class="mt-6">
         <!-- Carrusel mobile -->
@@ -194,38 +291,36 @@
           <!-- Libro 1 -->
           <article
             class="book-card snap-start shrink-0 w-[260px] bg-white rounded-2xl shadow-sm ring-1 ring-black/5 hover:shadow-md transition p-5 cursor-pointer"
-            data-title="Código Limpio" data-author="Robert C. Martin" data-image="libros/codigolimpio.jpg"
-            data-rating="4" data-isbn="9780132350884" data-year="2008" data-pages="464" data-genero="Programacion"
-            data-description="Guía práctica para escribir código legible y mantenible con principios S.O.L.I.D. y buenas prácticas.">
+            data-title="Termodinámica" data-author="Yunus A. Çengel; Michael A. Boles" data-image="/libros/termodi.png"
+            data-rating="4" data-isbn="9786071512819" data-year="2013" data-pages="997" data-genero="Termodinámica"
+            data-description="Este libro ofrece una introducción clara y accesible a los principios de la termodinámica aplicada a la ingeniería.">
             <div class="aspect-[3/4] w-full overflow-hidden rounded-xl bg-white">
-              <img src="libros/codigolimpio.jpg" alt="Código Limpio" class="h-full w-full object-contain p-1.5">
+              <img src="/libros/termodi.png" alt="Termodinámica" class="h-full w-full object-contain p-1.5">
             </div>
-            <h4 class="mt-4 text-lg font-semibold">Código Limpio</h4>
+            <h4 class="mt-4 text-lg font-semibold">Termodinámica</h4>
             <div class="mt-2 flex items-center gap-1 text-lime-500 text-sm">
-              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                class="fa-solid fa-star"></i><i class="fa-regular fa-star text-gray-300"></i>
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star text-gray-300"></i>
             </div>
-            <p class="mt-3 text-sm text-gray-500">Robert C. Martin</p>
+            <p class="mt-3 text-sm text-gray-500">Yunus A. Çengel; Michael A. Boles</p>
           </article>
 
           <!-- Libro 2 -->
           <article
             class="book-card snap-start shrink-0 w-[260px] bg-white rounded-2xl shadow-sm ring-1 ring-black/5 hover:shadow-md transition p-5 cursor-pointer"
-            data-title="Hábitos Atómicos" data-author="James Clear" data-image="libros/habits.jpg" data-rating="4"
-            data-isbn="9780735211292" data-year="2018" data-pages="320" data-genero="320"
-            data-description="Pequeños cambios, resultados extraordinarios. Un marco claro para construir hábitos y romper los malos.">
+            data-title="Álgebra Lineal" data-author="David C. Lay" data-image="/libros/algebra.jpg"
+            data-rating="4" data-isbn="9789702609063" data-year="2007" data-pages="584" data-genero="Matemáticas"
+            data-description="el libro proporciona un apoyo sustancial tanto para la enseñanza como para el uso de la tecnología en el curso. el texto presenta una introducción elemental moderna al álgebra lineal y una amplia selección de interesantes aplicaciones.">
             <div class="aspect-[3/4] w-full overflow-hidden rounded-xl bg-white">
-              <img src="libros/habits.jpg" alt="Hábitos Atómicos" class="h-full w-full object-contain p-1.5">
+              <img src="/libros/algebra.jpg" alt="Álgebra Lineal" class="h-full w-full object-contain p-1.5">
             </div>
-            <h4 class="mt-4 text-lg font-semibold">Hábitos Atómicos</h4>
+            <h4 class="mt-4 text-lg font-semibold">Álgebra Lineal</h4>
             <div class="mt-2 flex items-center gap-1 text-lime-500 text-sm">
-              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                class="fa-solid fa-star"></i><i class="fa-regular fa-star text-gray-300"></i>
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star text-gray-300"></i>
             </div>
-            <p class="mt-3 text-sm text-gray-500">James Clear</p>
+            <p class="mt-3 text-sm text-gray-500">David C. Lay</p>
           </article>
 
-          <!-- Libro 3 -->
+          <!-- Libro 3 ....... -->
           <article
             class="book-card snap-start shrink-0 w-[260px] bg-white rounded-2xl shadow-sm ring-1 ring-black/5 hover:shadow-md transition p-5 cursor-pointer"
             data-title="Los hombres del norte" data-author="John Haywood" data-image="libros/viki.jpg" data-rating="4"
@@ -262,40 +357,36 @@
 
         <!-- Grilla desktop -->
         <div class="hidden md:grid grid-cols-3 lg:grid-cols-4 gap-10">
-          <!-- Libro 1 -->
+           <!-- Libro 1 -->
           <article
             class="book-card bg-white rounded-2xl shadow-sm ring-1 ring-black/5 hover:shadow-md transition p-5 cursor-pointer"
-            data-title="Código Limpio" data-author="Robert C. Martin" data-image="libros/codigolimpio.jpg"
-            data-rating="5" data-isbn="9780132350884" data-year="2008" data-pages="464" data-genero="464"
-            data-description="Guía práctica para escribir código legible y mantenible con principios S.O.L.I.D. y buenas prácticas.">
+            data-title="Termodinámica" data-author="Yunus A. Çengel; Michael A. Boles" data-image="/libros/termodi.png"
+            data-rating="5" data-isbn="9786071512819" data-year="2013" data-pages="997" data-genero="Termodinámica"
+            data-description="Este libro ofrece una introducción clara y accesible a los principios de la termodinámica aplicada a la ingeniería.">
             <div class="aspect-[3/4] w-full overflow-hidden rounded-xl bg-white">
-              <img src="libros/codigolimpio.jpg" alt="Código Limpio" class="h-full w-full object-contain p-2">
+              <img src="/libros/termodi.png" alt="Termodinámica" class="h-full w-full object-contain p-2">
             </div>
-            <h4 class="mt-4 text-lg font-semibold">Código Limpio</h4>
+            <h4 class="mt-4 text-lg font-semibold">Termodinámica</h4>
             <div class="mt-2 flex items-center gap-1 text-lime-500">
-              <i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i
-                class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i
-                class="fa-solid fa-star text-sm"></i>
+              <i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i>
             </div>
-            <p class="mt-3 text-sm text-gray-500">Robert C. Martin</p>
+            <p class="mt-3 text-sm text-gray-500">Yunus A. Çengel; Michael A. Boles</p>
           </article>
 
           <!-- Libro 2 -->
-          <article
+           <article
             class="book-card bg-white rounded-2xl shadow-sm ring-1 ring-black/5 hover:shadow-md transition p-5 cursor-pointer"
-            data-title="Hábitos Atómicos" data-author="James Clear" data-image="libros/habits.jpg" data-rating="4"
-            data-isbn="9780735211292" data-year="2018" data-pages="320" data-genero="320"
-            data-description="Pequeños cambios, resultados extraordinarios. Un marco claro para construir hábitos y romper los malos.">
+            data-title="Álgebra Lineal" data-author="David C. Lay" data-image="/libros/algebra.jpg"
+            data-rating="5" data-isbn="9789702609063" data-year="2007" data-pages="584" data-genero="Matemáticas"
+            data-description="el libro proporciona un apoyo sustancial tanto para la enseñanza como para el uso de la tecnología en el curso. el texto presenta una introducción elemental moderna al álgebra lineal y una amplia selección de interesantes aplicaciones.">
             <div class="aspect-[3/4] w-full overflow-hidden rounded-xl bg-white">
-              <img src="libros/habits.jpg" alt="Hábitos Atómicos" class="h-full w-full object-contain p-2">
+              <img src="/libros/algebra.jpg" alt="Álgebra Lineal" class="h-full w-full object-contain p-2">
             </div>
-            <h4 class="mt-4 text-lg font-semibold">Hábitos Atómicos</h4>
+            <h4 class="mt-4 text-lg font-semibold">Álgebra Lineal</h4>
             <div class="mt-2 flex items-center gap-1 text-lime-500">
-              <i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i
-                class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i
-                class="fa-regular fa-star text-sm text-gray-300"></i>
+              <i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i>
             </div>
-            <p class="mt-3 text-sm text-gray-500">James Clear</p>
+            <p class="mt-3 text-sm text-gray-500">David C. Lay</p>
           </article>
 
           <!-- Libro 3 -->
@@ -341,7 +432,6 @@
     <section class="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 mt-12">
       <div class="flex items-center justify-between">
         <h3 class="text-2xl font-extrabold text-[#443c67]">Más leídos</h3>
-      
       </div>
 
       <!-- Carrusel mobile -->
@@ -676,7 +766,7 @@
             <li><a href="#"
                 class="text-sm text-slate-700 hover:text-slate-900 hover:underline underline-offset-4">Categorías</a>
             </li>
-            <li><a href="#"
+            <li><a href="/reservas.html"
                 class="text-sm text-slate-700 hover:text-slate-900 hover:underline underline-offset-4">Reservas</a></li>
             <li><a href="#"
                 class="text-sm text-slate-700 hover:text-slate-900 hover:underline underline-offset-4">Ayuda</a></li>
@@ -804,7 +894,7 @@
   <!-- fila completa con los botones -->
   <div class="col-span-2 flex flex-wrap items-center gap-3 mt-2">
     <button
-      class="inline-flex items-center gap-2 px-4 h-11 rounded-lg bg-indigo-900 text-white hover:opacity-90 transition">
+      class="btn-reservar inline-flex items-center gap-2 px-4 h-11 rounded-lg bg-indigo-900 text-white hover:opacity-90 transition">
       <i class="fa-solid fa-book-open"></i>
       Reservar
     </button>
