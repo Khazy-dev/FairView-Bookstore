@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Home • FairView</title>
+  <title>Inicio • FairView</title>
 
   <!-- Fuente Poppins desde Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -42,7 +42,7 @@
     - Menú desktop como fila. Menú mobile se abre como lista vertical.
   -->
   <header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-gray-100">
-    <nav class="w-full h-16 px-2 md:px-4 flex items-center justify-between">
+    <nav class="bg-[#F4F0E8] w-full h-16 px-2 md:px-4 flex items-center justify-between">
       <!-- Lado izquierdo: logo y buscador -->
       <div class="flex items-start gap-3 min-w-0">
         <a href="home.html" class="shrink-0 block">
@@ -59,10 +59,31 @@
         </div>
       </div>
 
-      <!-- Botón hamburguesa solo en mobile -->
-      <button id="menuBtn" aria-label="Abrir menú" class="md:hidden text-2xl p-2 rounded-md hover:bg-gray-100">
-        <i class="fa-solid fa-bars"></i>
-      </button>
+      <!--  =================================== MOBILE =======================================-->
+
+        <!-- Iconos (solo mobile) -->
+  <div class="flex items-center gap-3 md:hidden ml-auto">
+    <!-- Notificaciones -->
+    <button id="notifBtnMobile"
+      class="relative w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-100 transition">
+      <i class="fa-regular fa-bell text-[20px]"></i>
+      <span id="notifBadgeMobile"
+        class="absolute -top-1 -right-1 bg-red-500 text-white text-xs px-1.5 rounded-full hidden"></span>
+    </button>
+
+    <!-- Perfil -->
+    <a href="profile.html"
+      class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-100 transition"
+      aria-label="Cuenta">
+      <i class="fa-regular fa-user text-[20px]"></i>
+    </a>
+
+       <!-- Menú hamburguesa -->
+    <button id="menuBtn" aria-label="Abrir menú" class="text-2xl p-2 rounded-md hover:bg-gray-100">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </div>
+      
 
       <!-- Menú principal: se oculta en mobile por defecto -->
       <ul id="menuList" class="hidden md:flex items-center justify-center gap-4 md:gap-10
@@ -72,7 +93,7 @@
         <!-- Item simple -->
         <li>
           <a href="home.html" class="group relative px-1 py-1 font-semibold">
-            Home
+            Inicio
             <span
               class="pointer-events-none absolute left-0 -bottom-1 h-[2px] w-full scale-x-0 bg-black origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
           </a>
@@ -116,6 +137,7 @@
             <li><a href="/categorias/derecho.html" class="block px-3 py-2 rounded-lg hover:bg-gray-50">Derecho y ciencias Politicas</a></li>
             <li><a href="/categorias/ciencia.html" class="block px-3 py-2 rounded-lg hover:bg-gray-50">Ciencia</a></li>
             <li><a href="/categorias/psicologia.html" class="block px-3 py-2 rounded-lg hover:bg-gray-50">Psicologia y Educacion</a>
+            <li><a href="/faqs.html" class="block px-3 py-2 rounded-lg hover:bg-gray-50">FAQs</a>
             </li>
             </li>
           </ul>
@@ -323,35 +345,33 @@ camera.position.set(0, 0.3, 3);
           <!-- Libro 3 ....... -->
           <article
             class="book-card snap-start shrink-0 w-[260px] bg-white rounded-2xl shadow-sm ring-1 ring-black/5 hover:shadow-md transition p-5 cursor-pointer"
-            data-title="Los hombres del norte" data-author="John Haywood" data-image="libros/viki.jpg" data-rating="4"
-            data-isbn="9781465475361" data-year="2015" data-pages="320" data-genero="320"
-            data-description="Historia visual y concisa de los vikingos, sus viajes, cultura y legado en Europa.">
+            data-title="Ciencia Politica : un manual" data-author="Josep M Valles,Salvad Marti Puig" data-image="/libros/manual.webp"
+            data-rating="4" data-isbn="9788434432758" data-year="2012" data-pages="464" data-genero="Ciencia Politica"
+            data-description="Manual introductorio sobre política, actores, instituciones y sistemas democráticos, actualizado con globalización y ciencias politicas sociales.">
             <div class="aspect-[3/4] w-full overflow-hidden rounded-xl bg-white">
-              <img src="libros/viki.jpg" alt="Los hombres del norte" class="h-full w-full object-contain p-1.5">
+              <img src="/libros/manual.webp" alt="Ciencia Politica : un manual" class="h-full w-full object-contain p-1.5">
             </div>
-            <h4 class="mt-4 text-lg font-semibold">Los hombres del norte</h4>
+            <h4 class="mt-4 text-lg font-semibold">Ciencia Politica : un manual</h4>
             <div class="mt-2 flex items-center gap-1 text-lime-500 text-sm">
-              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                class="fa-solid fa-star"></i><i class="fa-regular fa-star text-gray-300"></i>
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star text-gray-300"></i>
             </div>
-            <p class="mt-3 text-sm text-gray-500">John Haywood</p>
+            <p class="mt-3 text-sm text-gray-500">Josep M Valles,Salvad Marti Puig</p>
           </article>
 
           <!-- Libro 4 -->
-          <article
+           <article
             class="book-card snap-start shrink-0 w-[260px] bg-white rounded-2xl shadow-sm ring-1 ring-black/5 hover:shadow-md transition p-5 cursor-pointer"
-            data-title="Los vagabundos de Dios" data-author="Mario Mendoza" data-image="libros/vagabundo.jpg"
-            data-rating="4" data-isbn="9789584259489" data-year="2018" data-pages="304" data-genero="304"
-            data-description="Novela contemporánea que explora espiritualidad, marginalidad y destinos cruzados en Bogotá.">
+            data-title="Una breve historia del tiempo" data-author="Stephen Hawking" data-image="/libros/libro1C.jpg"
+            data-rating="4" data-isbn="9780553109535" data-year="2013" data-pages="256" data-genero="Cosmología"
+            data-description="Explora el origen, desarrollo y destino del universo, desde el Big Bang hasta los agujeros negros.">
             <div class="aspect-[3/4] w-full overflow-hidden rounded-xl bg-white">
-              <img src="libros/vagabundo.jpg" alt="Los vagabundos de Dios" class="h-full w-full object-contain p-1.5">
+              <img src="/libros/libro1C.jpg" alt="Una breve historia del tiempo" class="h-full w-full object-contain p-1.5">
             </div>
-            <h4 class="mt-4 text-lg font-semibold">Los vagabundos de Dios</h4>
+            <h4 class="mt-4 text-lg font-semibold">Una breve historia del tiempo</h4>
             <div class="mt-2 flex items-center gap-1 text-lime-500 text-sm">
-              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                class="fa-solid fa-star"></i><i class="fa-regular fa-star text-gray-300"></i>
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star text-gray-300"></i>
             </div>
-            <p class="mt-3 text-sm text-gray-500">Mario Mendoza</p>
+            <p class="mt-3 text-sm text-gray-500">Stephen Hawking</p>
           </article>
         </div>
 
@@ -390,39 +410,35 @@ camera.position.set(0, 0.3, 3);
           </article>
 
           <!-- Libro 3 -->
-          <article
+           <article
             class="book-card bg-white rounded-2xl shadow-sm ring-1 ring-black/5 hover:shadow-md transition p-5 cursor-pointer"
-            data-title="Los hombres del norte" data-author="John Haywood" data-image="libros/viki.jpg" data-rating="4"
-            data-isbn="9781465475361" data-year="2015" data-pages="320" data-genero="320"
-            data-description="Historia visual y concisa de los vikingos, sus viajes, cultura y legado en Europa.">
+            data-title="Ciencia Politica : un manual" data-author="Josep M Valles,Salvad Marti Puig" data-image="/libros/manual.webp"
+            data-rating="5" data-isbn="9788434432758" data-year="2012" data-pages="464" data-genero="Ciencia Politica : un manual"
+            data-description="Este libro ofrece una introducción clara y accesible a los principios de la Ciencia Politica : un manual aplicada a la Ciencias politicas.">
             <div class="aspect-[3/4] w-full overflow-hidden rounded-xl bg-white">
-              <img src="libros/viki.jpg" alt="Los hombres del norte" class="h-full w-full object-contain p-2">
+              <img src="/libros/manual.webp" alt="Ciencia Politica : un manual" class="h-full w-full object-contain p-2">
             </div>
-            <h4 class="mt-4 text-lg font-semibold">Los hombres del norte</h4>
+            <h4 class="mt-4 text-lg font-semibold">Ciencia Politica : un manual</h4>
             <div class="mt-2 flex items-center gap-1 text-lime-500">
-              <i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i
-                class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i
-                class="fa-regular fa-star text-sm text-gray-300"></i>
+              <i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i>
             </div>
-            <p class="mt-3 text-sm text-gray-500">John Haywood</p>
+            <p class="mt-3 text-sm text-gray-500">Josep M Valles,Salvad Marti Puig</p>
           </article>
 
           <!-- Libro 4 -->
-          <article
+ <article
             class="book-card bg-white rounded-2xl shadow-sm ring-1 ring-black/5 hover:shadow-md transition p-5 cursor-pointer"
-            data-title="Los vagabundos de Dios" data-author="Mario Mendoza" data-image="libros/vagabundo.jpg"
-            data-rating="4" data-isbn="9789584259489" data-year="2018" data-pages="304" data-genero="304"
-            data-description="Novela contemporánea que explora espiritualidad, marginalidad y destinos cruzados en Bogotá.">
+            data-title="Una breve historia del tiempo" data-author="Stephen Hawking" data-image="/libros/libro1C.jpg"
+            data-rating="5" data-isbn="9780553109535" data-year="2013" data-pages="256" data-genero="Cosmología"
+            data-description="Explora el origen, desarrollo y destino del universo, desde el Big Bang hasta los agujeros negros.">
             <div class="aspect-[3/4] w-full overflow-hidden rounded-xl bg-white">
-              <img src="libros/vagabundo.jpg" alt="Los vagabundos de Dios" class="h-full w-full object-contain p-2">
+              <img src="/libros/libro1C.jpg" alt="Una breve historia del tiempo" class="h-full w-full object-contain p-2">
             </div>
-            <h4 class="mt-4 text-lg font-semibold">Los vagabundos de Dios</h4>
+            <h4 class="mt-4 text-lg font-semibold">Una breve historia del tiempo</h4>
             <div class="mt-2 flex items-center gap-1 text-lime-500">
-              <i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i
-                class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i
-                class="fa-regular fa-star text-sm text-gray-300"></i>
+              <i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i>
             </div>
-            <p class="mt-3 text-sm text-gray-500">Mario Mendoza</p>
+            <p class="mt-3 text-sm text-gray-500">Stephen Hawking</p>
           </article>
         </div>
       </div>
@@ -437,129 +453,134 @@ camera.position.set(0, 0.3, 3);
       <!-- Carrusel mobile -->
       <div class="md:hidden overflow-x-auto flex gap-4 snap-x snap-mandatory mt-6 pb-2">
         <!-- Libro 1 -->
-        <article
+         <article
           class="book-card snap-start shrink-0 w-[260px] bg-white rounded-2xl shadow-sm ring-1 ring-black/5 hover:shadow-md transition p-5 cursor-pointer"
-          data-title="El hombre en busca de sentido" data-author="Viktor Frankl" data-image="libros/hombre.jpg"
-          data-rating="4" data-isbn="9780807014295" data-year="1946" data-pages="184" data-genero="184"
-          data-description="Testimonio y visión de la logoterapia sobre el propósito de vida a partir de la experiencia en campos de concentración.">
+          data-title="Arquitectura de computadoras" data-author="Andrew S. Tanenbaum (c/ D. Wetherall)" data-image="/libros/redes.webp"
+          data-rating="4" data-isbn="9786073208178" data-year="2012" data-pages="672" data-genero="Redes"
+          data-description="Este libro ofrece una visión global de las redes de computadoras: desde el hardware y los medios de transmisión hasta los protocolos, la arquitectura de red, redes inalámbricas, VoIP y redes de igual a igual.">
           <div class="aspect-[3/4] w-full overflow-hidden rounded-xl bg-white">
-            <img src="libros/hombre.jpg" alt="El hombre en busca de sentido" class="h-full w-full object-contain p-1.5">
+            <img src="/libros/redes.webp" alt="Arquitectura de computadoras" class="h-full w-full object-contain p-1.5">
           </div>
-          <h4 class="mt-4 text-lg font-semibold">El hombre en busca de sentido</h4>
+          <h4 class="mt-4 text-lg font-semibold">Arquitectura de computadoras</h4>
           <div class="mt-2 flex items-center gap-1 text-lime-500 text-sm">
-            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-              class="fa-solid fa-star"></i><i class="fa-regular fa-star text-gray-300"></i>
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star text-gray-300"></i>
           </div>
-          <p class="mt-3 text-sm text-gray-500">Viktor Frankl</p>
+          <p class="mt-3 text-sm text-gray-500">Andrew S. Tanenbaum (c/ D. Wetherall)</p>
         </article>
 
         <!-- Libro 2 -->
-        <article
-          class="book-card snap-start shrink-0 w-[260px] bg-white rounded-2xl shadow-sm ring-1 ring-black/5 hover:shadow-md transition p-5 cursor-pointer"
-          data-title="Tiempos Recios" data-author="Mario Vargas Llosa" data-image="libros/tiempos.jpg" data-rating="4"
-          data-isbn="9786070755283" data-year="2019" data-pages="376" data-genero="376"
-          data-description="Novela política ambientada en Guatemala durante la Guerra Fría y el golpe de 1954.">
-          <div class="aspect-[3/4] w-full overflow-hidden rounded-xl bg-white">
-            <img src="libros/tiempos.jpg" alt="Tiempos Recios" class="h-full w-full object-contain p-1.5">
-          </div>
-          <h4 class="mt-4 text-lg font-semibold">Tiempos Recios</h4>
-          <div class="mt-2 flex items-center gap-1 text-lime-500 text-sm">
-            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-              class="fa-solid fa-star"></i><i class="fa-regular fa-star text-gray-300"></i>
-          </div>
-          <p class="mt-3 text-sm text-gray-500">Mario Vargas Llosa</p>
-        </article>
+         <article
+            class="book-card snap-start shrink-0 w-[260px] bg-white rounded-2xl shadow-sm ring-1 ring-black/5 hover:shadow-md transition p-5 cursor-pointer"
+            data-title="Calculo" data-author="James Stewart" data-image="/libros/calculo.jpg" data-rating="4"
+            data-isbn="100538498714" data-year="2004" data-pages="648" data-genero="Matematicas"
+            data-description="Es uno de los textos más utilizados en el mundo para cursos de cálculo diferencial e integral, tanto a nivel universitario como en bachilleratos avanzados. Está diseñado para estudiantes de ciencias, ingeniería y matemáticas, aunque también lo usan en otras disciplinas técnicas.">
+            <div class="aspect-[3/4] w-full overflow-hidden rounded-xl bg-white">
+              <img src="/libros/calculo.jpg" alt="Calculo" class="h-full w-full object-contain p-1.5">
+            </div>
+            <h4 class="mt-4 text-lg font-semibold">Calculo</h4>
+            <div class="mt-2 flex items-center gap-1 text-lime-500 text-sm">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star text-gray-300"></i>
+            </div>
+            <p class="mt-3 text-sm text-gray-500">James Stewart</p>
+          </article>
 
         <!-- Libro 3 -->
+         <article
+            class="book-card snap-start shrink-0 w-[260px] bg-white rounded-2xl shadow-sm ring-1 ring-black/5 hover:shadow-md transition p-5 cursor-pointer"
+            data-title="El gen egoísta" data-author="Matthew N. O. Sadiku" data-image="/libros/libro2C.webp" data-rating="4"
+            data-isbn="9786073240994" data-year="2017" data-pages="736" data-genero="Biología evolutiva"
+            data-description="Presenta la evolución desde la perspectiva del gen “egoísta”, argumentando que los organismos son vehículos para la reproducción genética.">
+            <div class="aspect-[3/4] w-full overflow-hidden rounded-xl bg-white">
+              <img src="/libros/libro2C.webp" alt="El gen egoísta" class="h-full w-full object-contain p-1.5">
+            </div>
+            <h4 class="mt-4 text-lg font-semibold">El gen egoísta</h4>
+            <div class="mt-2 flex items-center gap-1 text-lime-500 text-sm">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star text-gray-300"></i>
+            </div>
+            <p class="mt-3 text-sm text-gray-500">Richard Dawkins</p>
+          </article>
+
         <article
           class="book-card snap-start shrink-0 w-[260px] bg-white rounded-2xl shadow-sm ring-1 ring-black/5 hover:shadow-md transition p-5 cursor-pointer"
-          data-title="Los vagabundos de Dios" data-author="Mario Mendoza" data-image="libros/vagabundo.jpg"
-          data-rating="4" data-isbn="9789584259489" data-year="2018" data-pages="304" data-genero="304"
-          data-description="Novela contemporánea que explora espiritualidad, marginalidad y destinos cruzados en Bogotá.">
+          data-title="Muerte por agujeros negros" data-author="Neil deGrasse Tyson" data-image="/libros/libro8C.jpg"
+          data-rating="4" data-isbn="9786077472964" data-year="2012" data-pages="520" data-genero="Divulgación científica"
+          data-description="Recopila más de cuarenta ensayos donde Tyson explora preguntas sobre el universo, los agujeros negros, los orígenes cósmicos, y lo que implica para nosotros comprender el cosmos. ">
           <div class="aspect-[3/4] w-full overflow-hidden rounded-xl bg-white">
-            <img src="libros/vagabundo.jpg" alt="Los vagabundos de Dios" class="h-full w-full object-contain p-1.5">
+            <img src="/libros/libro8C.jpg" alt="Muerte por agujeros negros" class="h-full w-full object-contain p-1.5">
           </div>
-          <h4 class="mt-4 text-lg font-semibold">Los vagabundos de Dios</h4>
+          <h4 class="mt-4 text-lg font-semibold">Muerte por agujeros negros</h4>
           <div class="mt-2 flex items-center gap-1 text-lime-500 text-sm">
-            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-              class="fa-solid fa-star"></i><i class="fa-regular fa-star text-gray-300"></i>
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star text-gray-300"></i>
           </div>
-          <p class="mt-3 text-sm text-gray-500">Mario Mendoza</p>
+          <p class="mt-3 text-sm text-gray-500">Neil deGrasse Tyson</p>
         </article>
       </div>
 
       <!-- Grilla desktop -->
       <div class="hidden md:grid grid-cols-3 lg:grid-cols-4 gap-10 mt-6">
         <!-- Libro 1 -->
-        <article
+<article
           class="book-card bg-white rounded-2xl shadow-sm ring-1 ring-black/5 hover:shadow-md transition p-5 cursor-pointer"
-          data-title="El hombre en busca de sentido" data-author="Viktor Frankl" data-image="libros/hombre.jpg"
-          data-rating="4" data-isbn="9780807014295" data-year="1946" data-pages="184" data-genero="184"
+          data-title="Arquitectura de computadoras" data-author="Andrew S. Tanenbaum (c/ D. Wetherall)" data-image="/libros/redes.webp"
+          data-rating="4" data-isbn="9786073208178" data-year="2012" data-pages="672" data-genero="Redes"
           data-description="Testimonio y visión de la logoterapia sobre el propósito de vida a partir de la experiencia en campos de concentración.">
           <div class="aspect-[3/4] w-full overflow-hidden rounded-xl bg-white">
-            <img src="libros/hombre.jpg" alt="El hombre en busca de sentido" class="h-full w-full object-contain p-2">
+            <img src="/libros/redes.webp" alt="Arquitectura de computadoras" class="h-full w-full object-contain p-2">
           </div>
-          <h4 class="mt-4 text-lg font-semibold">El hombre en busca de sentido</h4>
+          <h4 class="mt-4 text-lg font-semibold">Arquitectura de computadoras</h4>
           <div class="mt-2 flex items-center gap-1 text-lime-500">
-            <i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i
-              class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i
-              class="fa-regular fa-star text-sm text-gray-300"></i>
+            <i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-regular fa-star text-sm text-gray-300"></i>
           </div>
-          <p class="mt-3 text-sm text-gray-500">Viktor Frankl</p>
+          <p class="mt-3 text-sm text-gray-500">Andrew S. Tanenbaum (c/ D. Wetherall)</p>
         </article>
 
         <!-- Libro 2 -->
-        <article
-          class="book-card bg-white rounded-2xl shadow-sm ring-1 ring-black/5 hover:shadow-md transition p-5 cursor-pointer"
-          data-title="Tiempos Recios" data-author="Mario Vargas Llosa" data-image="libros/tiempos.jpg" data-rating="4"
-          data-isbn="9786070755283" data-year="2019" data-pages="376" data-genero="376"
-          data-description="Novela política ambientada en Guatemala durante la Guerra Fría y el golpe de 1954.">
-          <div class="aspect-[3/4] w-full overflow-hidden rounded-xl bg-white">
-            <img src="libros/tiempos.jpg" alt="Tiempos Recios" class="h-full w-full object-contain p-2">
-          </div>
-          <h4 class="mt-4 text-lg font-semibold">Tiempos Recios</h4>
-          <div class="mt-2 flex items-center gap-1 text-lime-500">
-            <i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i
-              class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i
-              class="fa-regular fa-star text-sm text-gray-300"></i>
-          </div>
-          <p class="mt-3 text-sm text-gray-500">Mario Vargas Llosa</p>
-        </article>
+      <article
+            class="book-card bg-white rounded-2xl shadow-sm ring-1 ring-black/5 hover:shadow-md transition p-5 cursor-pointer"
+            data-title="Calculo" data-author="James Stewart" data-image="/libros/calculo.jpg" data-rating="4"
+            data-isbn="100538498714" data-year="2004" data-pages="648" data-genero="Matematicas"
+            data-description="Es uno de los textos más utilizados en el mundo para cursos de cálculo diferencial e integral, tanto a nivel universitario como en bachilleratos avanzados. Está diseñado para estudiantes de ciencias, ingeniería y matemáticas, aunque también lo usan en otras disciplinas técnicas.">
+            <div class="aspect-[3/4] w-full overflow-hidden rounded-xl bg-white">
+              <img src="/libros/calculo.jpg" alt="Calculo" class="h-full w-full object-contain p-2">
+            </div>
+            <h4 class="mt-4 text-lg font-semibold">Calculo</h4>
+            <div class="mt-2 flex items-center gap-1 text-lime-500">
+              <i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-regular fa-star text-sm text-gray-300"></i>
+            </div>
+            <p class="mt-3 text-sm text-gray-500">James Stewart</p>
+          </article>
+
 
         <!-- Libro 3 -->
         <article
-          class="book-card bg-white rounded-2xl shadow-sm ring-1 ring-black/5 hover:shadow-md transition p-5 cursor-pointer"
-          data-title="Jinetes en el cielo" data-author="Mario Roberto Morales" data-image="libros/jinetes.jpg"
-          data-rating="4" data-isbn="9789992210149" data-year="2003" data-pages="280" data-genero="280"
-          data-description="Narrativa centroamericana con crítica social y mirada a la realidad política.">
-          <div class="aspect-[3/4] w-full overflow-hidden rounded-xl bg-white">
-            <img src="libros/jinetes.jpg" alt="Jinetes en el cielo" class="h-full w-full object-contain p-2">
-          </div>
-          <h4 class="mt-4 text-lg font-semibold">Jinetes en el cielo</h4>
-          <div class="mt-2 flex items-center gap-1 text-lime-500">
-            <i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i
-              class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i
-              class="fa-regular fa-star text-sm text-gray-300"></i>
-          </div>
-          <p class="mt-3 text-sm text-gray-500">Mario Roberto Morales</p>
-        </article>
+            class="book-card bg-white rounded-2xl shadow-sm ring-1 ring-black/5 hover:shadow-md transition p-5 cursor-pointer"
+            data-title="El gen egoísta" data-author="Richard Dawkins" data-image="/libros/libro2C.webp" data-rating="4"
+            data-isbn="9786073240994" data-year="2017" data-pages="736" data-genero="Biología evolutiva"
+            data-description="Presenta la evolución desde la perspectiva del gen “egoísta”, argumentando que los organismos son vehículos para la reproducción genética.">
+            <div class="aspect-[3/4] w-full overflow-hidden rounded-xl bg-white">
+              <img src="/libros/libro2C.webp" alt="El gen egoísta" class="h-full w-full object-contain p-2">
+            </div>
+            <h4 class="mt-4 text-lg font-semibold">El gen egoísta</h4>
+            <div class="mt-2 flex items-center gap-1 text-lime-500">
+              <i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-regular fa-star text-sm text-gray-300"></i>
+            </div>
+            <p class="mt-3 text-sm text-gray-500">Richard Dawkins</p>
+          </article>
 
         <!-- Libro 4 --> <!--No se muestra-->
-        <article
-          class="book-card bg-white rounded-2xl shadow-sm ring-1 ring-black/5 hover:shadow-md transition p-5 cursor-pointer"
-          data-title="El señor presidente" data-author="Miguel Ángel Asturias" data-image="libros/presi.jpg"
-          data-rating="4" data-isbn="9788497595570" data-year="1946" data-pages="352" data-genero="352"
-          data-description="Clásico de la literatura guatemalteca que retrata el abuso de poder en una dictadura.">
+       <article
+          class="book-card snap-start shrink-0 w-[260px] bg-white rounded-2xl shadow-sm ring-1 ring-black/5 hover:shadow-md transition p-5 cursor-pointer"
+          data-title="Muerte por agujeros negros" data-author="Neil deGrasse Tyson" data-image="/libros/libro8C.jpg"
+          data-rating="4" data-isbn="9786077472964" data-year="2012" data-pages="520" data-genero="Divulgación científica"
+          data-description="Recopila más de cuarenta ensayos donde Tyson explora preguntas sobre el universo, los agujeros negros, los orígenes cósmicos, y lo que implica para nosotros comprender el cosmos. ">
           <div class="aspect-[3/4] w-full overflow-hidden rounded-xl bg-white">
-            <img src="libros/presi.jpg" alt="El señor presidente" class="h-full w-full object-contain p-2">
+            <img src="/libros/libro8C.jpg" alt="Muerte por agujeros negros" class="h-full w-full object-contain p-1.5">
           </div>
-          <h4 class="mt-4 text-lg font-semibold">El señor presidente</h4>
-          <div class="mt-2 flex items-center gap-1 text-lime-500">
-            <i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i
-              class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i
-              class="fa-regular fa-star text-sm text-gray-300"></i>
+          <h4 class="mt-4 text-lg font-semibold">Muerte por agujeros negros</h4>
+          <div class="mt-2 flex items-center gap-1 text-lime-500 text-sm">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star text-gray-300"></i>
           </div>
-          <p class="mt-3 text-sm text-gray-500">Miguel Ángel</p>
+          <p class="mt-3 text-sm text-gray-500">Neil deGrasse Tyson</p>
         </article>
       </div>
     </section>
@@ -580,7 +601,7 @@ camera.position.set(0, 0.3, 3);
   </style>
 </head>
 
-
+<!-- TESTIMONIOOOOOS-->
 
   <!-- Título Times New Roman -->
   <header class="mt-24 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-8">
@@ -759,17 +780,17 @@ camera.position.set(0, 0.3, 3);
 
         <!-- Columna 2 -->
         <div>
-          <h3 class="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-700">Home</h3>
+          <h3 class="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-700">Inicio</h3>
           <ul class="space-y-2">
-            <li><a href="#"
+            <li><a href="home.html"
                 class="text-sm text-slate-700 hover:text-slate-900 hover:underline underline-offset-4">Inicio</a></li>
             <li><a href="#"
                 class="text-sm text-slate-700 hover:text-slate-900 hover:underline underline-offset-4">Categorías</a>
             </li>
             <li><a href="/reservas.html"
                 class="text-sm text-slate-700 hover:text-slate-900 hover:underline underline-offset-4">Reservas</a></li>
-            <li><a href="#"
-                class="text-sm text-slate-700 hover:text-slate-900 hover:underline underline-offset-4">Ayuda</a></li>
+            <li><a href="faqs.html"
+                class="text-sm text-slate-700 hover:text-slate-900 hover:underline underline-offset-4">FAQs</a></li>
           </ul>
         </div>
 

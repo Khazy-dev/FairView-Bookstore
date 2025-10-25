@@ -42,7 +42,7 @@
     - Menú desktop como fila. Menú mobile se abre como lista vertical.
   -->
   <header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-gray-100">
-    <nav class="w-full h-16 px-2 md:px-4 flex items-center justify-between">
+    <nav class="bg-[#F4F0E8] w-full h-16 px-2 md:px-4 flex items-center justify-between">
       <!-- Lado izquierdo: logo y buscador -->
       <div class="flex items-start gap-3 min-w-0">
         <a href="home.html" class="shrink-0 block">
@@ -59,6 +59,26 @@
         </div>
       </div>
 
+              <!-- ICONOS MOBILE -->
+      <div class="flex items-center gap-3 md:hidden ml-auto">
+        <button id="notifBtnMobile"
+          class="relative w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-100 transition">
+          <i class="fa-regular fa-bell text-[20px]"></i>
+          <span id="notifBadgeMobile"
+            class="absolute -top-1 -right-1 bg-red-500 text-white text-xs px-1.5 rounded-full hidden"></span>
+        </button>
+
+        <a href="/profile.html"
+          class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-100 transition"
+          aria-label="Cuenta">
+          <i class="fa-regular fa-user text-[20px]"></i>
+        </a>
+
+
+      </div>
+
+      
+
       <!-- Botón hamburguesa solo en mobile -->
       <button id="menuBtn" aria-label="Abrir menú" class="md:hidden text-2xl p-2 rounded-md hover:bg-gray-100">
         <i class="fa-solid fa-bars"></i>
@@ -72,7 +92,7 @@
         <!-- Item simple -->
         <li>
           <a href="home.html" class="group relative px-1 py-1 font-semibold">
-            Home
+            Inicio
             <span
               class="pointer-events-none absolute left-0 -bottom-1 h-[2px] w-full scale-x-0 bg-black origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
           </a>
@@ -140,12 +160,21 @@
       </ul>
 
       <!-- Iconos a la derecha (solo desktop) -->
-      <div class="hidden md:flex items-center gap-3 ml-3">
-        <a href="notificaciones.html"
-          class="inline-flex items-center justify-center w-9 h-9 rounded-full hover:bg-gray-100 transition"
-          aria-label="Notificaciones">
-          <i class="fa-regular fa-bell text-[18px]"></i>
-        </a>
+ <!-- Iconos a la derecha (solo desktop) -->
+
+       <div class="hidden md:flex items-center gap-3 ml-3">
+<a id="notifBtn" class="inline-flex items-center justify-center w-9 h-9 rounded-full hover:bg-gray-100 transition relative cursor-pointer">
+  <i class="fa-regular fa-bell text-[20px]"></i>
+  <span id="notifBadge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs px-1.5 rounded-full hidden"></span>
+</a>
+
+<!-- Popup -->
+<div id="notifPopup"
+  class="hidden absolute right-12 mt-36 w-64 bg-white shadow-xl rounded-xl border border-gray-100 p-4 text-sm z-50">
+  <p class="font-semibold mb-2">Notificaciones</p>
+  <div id="notifContent" class="space-y-2 text-gray-700"></div>
+</div>
+
         <a href="profile.html"
           class="inline-flex items-center justify-center w-9 h-9 rounded-full hover:bg-gray-100 transition"
           aria-label="Cuenta">
@@ -154,8 +183,10 @@
       </div>
     </nav>
   </header>
+
   <div class="h-16"></div>
 
+  <!-- ============================= CONTENIDO ============================= -->
   <main class="max-w-4xl mx-auto px-4 py-10">
     <h1 class="text-3xl font-extrabold text-center mb-8">Mis Reservas</h1>
 
@@ -168,62 +199,116 @@
         <a href="home.html" class="bg-indigo-900 text-white px-4 py-2 rounded-lg hover:opacity-90">Explorar libros</a>
       </div>
     </div>
-    
+
+    <!-- ===== BOTÓN DE RESERVA (se muestra dinámicamente) ===== -->
+    <div id="btnReservaContainer" class="text-center mt-10 hidden">
+      <button id="abrirPopup" class="bg-indigo-900 text-white px-6 py-2.5 text-lg rounded-lg shadow hover:opacity-90 transition">
+        Reservar ahora
+      </button>
+    </div>
   </main>
 
-<script>
-  const cont = document.getElementById("reservasContainer");
-  const empty = document.getElementById("emptyMsg");
-  const reservas = JSON.parse(localStorage.getItem("reservas")) || [];
+  <!-- ===== POPUP DE RESERVA ===== -->
+  <div id="popupReserva" class="fixed inset-0 bg-black/40 hidden z-50 flex items-center justify-center backdrop-blur-sm">
+    <div class="bg-white rounded-2xl shadow-2xl p-8 w-[90%] max-w-md text-center border border-gray-200">
+      <h2 class="text-2xl font-bold mb-6 text-indigo-900">Datos del Estudiante</h2>
+      <div class="space-y-4">
+        <input id="nombreEst" type="text" placeholder="Nombre completo" class="w-full border border-gray-300 p-2.5 rounded-lg focus:ring-2 focus:ring-indigo-800 outline-none">
+        <input id="matriculaEst" type="text" placeholder="Matrícula" class="w-full border border-gray-300 p-2.5 rounded-lg focus:ring-2 focus:ring-indigo-800 outline-none">
+        <input id="emailEst" type="email" placeholder="Correo institucional (@miumg.edu.gt)" class="w-full border border-gray-300 p-2.5 rounded-lg focus:ring-2 focus:ring-indigo-800 outline-none">
+      </div>
+      <div class="mt-6 flex gap-3 justify-center">
+        <button id="confirmarReserva" class="bg-indigo-900 text-white px-6 py-2 rounded-lg hover:opacity-90">Reservar</button>
+        <button id="cerrarPopup" class="bg-gray-200 px-6 py-2 rounded-lg hover:bg-gray-300">Cancelar</button>
+      </div>
+    </div>
+  </div>
 
-  if (reservas.length === 0) {
-    empty.classList.remove("hidden");
-  } else {
-    reservas.forEach((r, i) => {
-      // calcular días restantes
-      const diasRestantes = Math.ceil((new Date(r.entrega) - new Date()) / 86400000);
-      const estado = diasRestantes <= 0 ? "Vencida" : "Activa";
-      const color = diasRestantes <= 0 ? "text-red-600" : "text-green-700";
+  <script>
+    const cont = document.getElementById("reservasContainer");
+    const empty = document.getElementById("emptyMsg");
+    const btnContainer = document.getElementById("btnReservaContainer");
+    const reservas = JSON.parse(localStorage.getItem("reservas")) || [];
 
-      // crear tarjeta
-      const card = document.createElement("div");
-      card.className = `
-        bg-white/70 backdrop-blur-md border border-white/50 shadow-[0_4px_20px_rgba(0,0,0,0.05)]
-        rounded-2xl flex items-center gap-5 p-5 hover:shadow-[0_6px_25px_rgba(0,0,0,0.1)] transition
-      `;
-      card.innerHTML = `
-        <img src="${r.img}" alt="${r.title}"
-             class="w-20 h-24 object-contain rounded-xl bg-gray-50 p-1.5 shadow-inner">
-        <div class="flex-1">
-          <h3 class="text-lg font-semibold">${r.title}</h3>
-          <p class="text-sm text-gray-600">${r.author}</p>
-          <p class="text-xs text-gray-500 mt-2">Reservado el <b>${r.date}</b></p>
-          <p class="text-xs ${color} font-medium mt-1">
-            Devolver antes del ${r.entrega || "—"}
-          </p>
-        </div>
-        <div class="text-right">
-          <span class="block text-sm font-semibold ${color} mb-2">${estado}</span>
-          <button data-i="${i}" class="cancel-btn text-red-600 text-xs font-medium hover:underline">Cancelar</button>
-        </div>
-      `;
-      cont.appendChild(card);
-    });
-  }
+    if (reservas.length === 0) {
+      empty.classList.remove("hidden");
+      btnContainer.classList.add("hidden");
+    } else {
+      btnContainer.classList.remove("hidden");
+      reservas.forEach((r, i) => {
+        const diasRestantes = Math.ceil((new Date(r.entrega) - new Date()) / 86400000);
+        const estado = diasRestantes <= 0 ? "Vencida" : "Activa";
+        const color = diasRestantes <= 0 ? "text-red-600" : "text-green-700";
 
-  // cancelar reserva
-  cont.addEventListener("click", e => {
-    if (e.target.classList.contains("cancel-btn")) {
-      const idx = e.target.dataset.i;
-      reservas.splice(idx, 1);
-      localStorage.setItem("reservas", JSON.stringify(reservas));
-      location.reload();
+        const card = document.createElement("div");
+        card.className = `
+          bg-white/70 backdrop-blur-md border border-white/50 shadow-[0_4px_20px_rgba(0,0,0,0.05)]
+          rounded-2xl flex items-center gap-5 p-5 hover:shadow-[0_6px_25px_rgba(0,0,0,0.1)] transition
+        `;
+        card.innerHTML = `
+          <img src="${r.img}" alt="${r.title}" class="w-20 h-24 object-contain rounded-xl bg-gray-50 p-1.5 shadow-inner">
+          <div class="flex-1">
+            <h3 class="text-lg font-semibold">${r.title}</h3>
+            <p class="text-sm text-gray-600">${r.author}</p>
+            <p class="text-xs text-gray-500 mt-2">Reservado el <b>${r.date}</b></p>
+            <p class="text-xs ${color} font-medium mt-1">Devolver antes del ${r.entrega || "—"}</p>
+          </div>
+          <div class="text-right">
+            <span class="block text-sm font-semibold ${color} mb-2">${estado}</span>
+            <button data-i="${i}" class="cancel-btn text-red-600 text-xs font-medium hover:underline">Cancelar</button>
+          </div>
+        `;
+        cont.appendChild(card);
+      });
     }
-  });
-</script>
 
+    cont.addEventListener("click", e => {
+      if (e.target.classList.contains("cancel-btn")) {
+        const idx = e.target.dataset.i;
+        reservas.splice(idx, 1);
+        localStorage.setItem("reservas", JSON.stringify(reservas));
+        location.reload();
+      }
+    });
 
-  <script src="/script.js"></script>
+    // === POPUP DE RESERVA ===
+    const popup = document.getElementById("popupReserva");
+    const abrir = document.getElementById("abrirPopup");
+    const cerrar = document.getElementById("cerrarPopup");
+    const confirmar = document.getElementById("confirmarReserva");
+
+    if (abrir) abrir.addEventListener("click", () => popup.classList.remove("hidden"));
+    if (cerrar) cerrar.addEventListener("click", () => popup.classList.add("hidden"));
+
+    if (confirmar) confirmar.addEventListener("click", () => {
+      const nombre = document.getElementById("nombreEst").value.trim();
+      const matricula = document.getElementById("matriculaEst").value.trim();
+      const email = document.getElementById("emailEst").value.trim();
+
+      if (!nombre || !matricula || !email) {
+        alert("Por favor completa todos los campos.");
+        return;
+      }
+
+      const regex = /^[a-zA-Z0-9._%+-]+@miumg\.edu\.gt$/;
+      if (!regex.test(email)) {
+        alert("El correo debe ser institucional (@miumg.edu.gt).");
+        return;
+      }
+
+      popup.innerHTML = `
+        <div class='bg-white rounded-2xl shadow-2xl p-8 w-[90%] max-w-md text-center'>
+          <i class="fa-solid fa-circle-check text-green-600 text-5xl mb-4"></i>
+          <p class='text-lg font-semibold mb-4 text-gray-800'>¡Reservado con éxito!</p>
+          <button onclick="document.getElementById('popupReserva').classList.add('hidden')" 
+                  class="bg-indigo-900 text-white px-6 py-2 rounded-lg hover:opacity-90">
+            Cerrar
+          </button>
+        </div>`;
+    });
+  </script>
+
+  <script src="script.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
 </body>

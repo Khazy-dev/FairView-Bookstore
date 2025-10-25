@@ -31,7 +31,7 @@
 <body class="font-sans text-ink bg-white">
   <!-- ============================= NAVBAR ============================= -->
   <header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-gray-100">
-    <nav class="w-full h-16 px-2 md:px-4 flex items-center justify-between">
+    <nav class="bg-[#F4F0E8] w-full h-16 px-2 md:px-4 flex items-center justify-between">
       <!-- Izquierda -->
       <div class="flex items-start gap-3 min-w-0">
         <a href="home.html" class="shrink-0 block">
@@ -47,6 +47,24 @@
         </div>
       </div>
 
+              <!-- ICONOS MOBILE -->
+      <div class="flex items-center gap-3 md:hidden ml-auto">
+        <button id="notifBtnMobile"
+          class="relative w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-100 transition">
+          <i class="fa-regular fa-bell text-[20px]"></i>
+          <span id="notifBadgeMobile"
+            class="absolute -top-1 -right-1 bg-red-500 text-white text-xs px-1.5 rounded-full hidden"></span>
+        </button>
+
+        <a href="/profile.html"
+          class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-100 transition"
+          aria-label="Cuenta">
+          <i class="fa-regular fa-user text-[20px]"></i>
+        </a>
+
+
+      </div>
+
       <!-- Hamburguesa -->
       <button id="menuBtn" aria-label="Abrir menú" class="md:hidden text-2xl p-2 rounded-md hover:bg-gray-100">
         <i class="fa-solid fa-bars"></i>
@@ -60,7 +78,7 @@
 
         <li>
           <a href="/home.html" class="group relative px-1 py-1 font-semibold">
-            Home
+            Inicio
             <span class="pointer-events-none absolute left-0 -bottom-1 h-[2px] w-full scale-x-0 bg-black origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
           </a>
         </li>
@@ -259,13 +277,13 @@ window.addEventListener("DOMContentLoaded", () => {
           <!-- Libro 4  me quede aqui--> 
           <article
             class="book-card snap-start shrink-0 w-[260px] bg-white rounded-2xl shadow-sm ring-1 ring-black/5 hover:shadow-md transition p-5 cursor-pointer"
-            data-title="Ingenería de control modernaes" data-author="Katsuhiko Ogata" data-image="/libros/ogata.webp"
+            data-title="Ingeniería de control medernas" data-author="Katsuhiko Ogata" data-image="/libros/ogata.webp"
             data-rating="4" data-isbn="9788483226605" data-year="2010" data-pages="894" data-genero="Ingeniería"
             data-description="Cubre modelado matemático, transformada de Laplace, respuesta transitoria, lugar de raíces, frecuencia, controladores PID, espacio de estados, e introduce el uso de MATLAB para análisis práctico.">
             <div class="aspect-[3/4] w-full overflow-hidden rounded-xl bg-white">
-              <img src="/libros/ogata.webp" alt="Ingenería de control modernaes" class="h-full w-full object-contain p-1.5">
+              <img src="/libros/ogata.webp" alt="Ingeniería de control medernas" class="h-full w-full object-contain p-1.5">
             </div>
-            <h4 class="mt-4 text-lg font-semibold">Ingenería de control modernaes</h4>
+            <h4 class="mt-4 text-lg font-semibold">Ingeniería de control medernas</h4>
             <div class="mt-2 flex items-center gap-1 text-lime-500 text-sm">
               <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star text-gray-300"></i>
             </div>
@@ -326,13 +344,13 @@ window.addEventListener("DOMContentLoaded", () => {
           <!-- Libro 4 -->
           <article
             class="book-card bg-white rounded-2xl shadow-sm ring-1 ring-black/5 hover:shadow-md transition p-5 cursor-pointer"
-            data-title="Ingenería de control modernaes" data-author="Katsuhiko Ogata" data-image="/libros/ogata.webp"
+            data-title="Ingeniería de control medernas" data-author="Katsuhiko Ogata" data-image="/libros/ogata.webp"
             data-rating="4" data-isbn="9788483226605" data-year="2010" data-pages="894" data-genero="Ingeniería"
             data-description="Cubre modelado matemático, transformada de Laplace, respuesta transitoria, lugar de raíces, frecuencia, controladores PID, espacio de estados, e introduce el uso de MATLAB para análisis práctico.">
             <div class="aspect-[3/4] w-full overflow-hidden rounded-xl bg-white">
-              <img src="/libros/ogata.webp" alt="Ingenería de control modernaes" class="h-full w-full object-contain p-2">
+              <img src="/libros/ogata.webp" alt="Ingeniería de control medernas" class="h-full w-full object-contain p-2">
             </div>
-            <h4 class="mt-4 text-lg font-semibold">Ingenería de control modernaes</h4>
+            <h4 class="mt-4 text-lg font-semibold">Ingeniería de control medernas</h4>
             <div class="mt-2 flex items-center gap-1 text-lime-500">
               <i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-regular fa-star text-sm text-gray-300"></i>
             </div>
@@ -500,7 +518,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
         <!-- Col 2 -->
         <div>
-          <h3 class="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-700">Home</h3>
+          <h3 class="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-700">Inicio</h3>
           <ul class="space-y-2">
             <li><a href="#" class="text-sm text-slate-700 hover:text-slate-900 hover:underline underline-offset-4">Inicio</a></li>
             <li><a href="#" class="text-sm text-slate-700 hover:text-slate-900 hover:underline underline-offset-4">Categorías</a></li>

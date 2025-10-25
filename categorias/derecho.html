@@ -31,7 +31,7 @@
 <body class="font-sans text-ink bg-white">
   <!-- ============================= NAVBAR ============================= -->
   <header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-gray-100">
-    <nav class="w-full h-16 px-2 md:px-4 flex items-center justify-between">
+    <nav class="bg-[#F4F0E8] w-full h-16 px-2 md:px-4 flex items-center justify-between">
       <!-- Izquierda -->
       <div class="flex items-start gap-3 min-w-0">
         <a href="home.html" class="shrink-0 block">
@@ -47,6 +47,24 @@
         </div>
       </div>
 
+              <!-- ICONOS MOBILE -->
+      <div class="flex items-center gap-3 md:hidden ml-auto">
+        <button id="notifBtnMobile"
+          class="relative w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-100 transition">
+          <i class="fa-regular fa-bell text-[20px]"></i>
+          <span id="notifBadgeMobile"
+            class="absolute -top-1 -right-1 bg-red-500 text-white text-xs px-1.5 rounded-full hidden"></span>
+        </button>
+
+        <a href="/profile.html"
+          class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-100 transition"
+          aria-label="Cuenta">
+          <i class="fa-regular fa-user text-[20px]"></i>
+        </a>
+
+
+      </div>
+
       <!-- Hamburguesa -->
       <button id="menuBtn" aria-label="Abrir menú" class="md:hidden text-2xl p-2 rounded-md hover:bg-gray-100">
         <i class="fa-solid fa-bars"></i>
@@ -60,7 +78,7 @@
 
         <li>
           <a href="/home.html" class="group relative px-1 py-1 font-semibold">
-            Home
+            Inicio
             <span class="pointer-events-none absolute left-0 -bottom-1 h-[2px] w-full scale-x-0 bg-black origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
           </a>
         </li>
@@ -78,11 +96,11 @@
                        opacity-0 pointer-events-none translate-y-1 transition-all duration-150
                        group-hover:opacity-100 group-hover:pointer-events-auto group-hover:translate-y-0">
             <ul class="py-2">
-              <li><a href="/categorias/Mates.html" class="block px-4 py-2 hover:bg-gray-50">Estadística y Matemáticas</a></li>
-              <li><a href="/categorias/tec.html" class="block px-4 py-2 hover:bg-gray-50">Ingeniería y tecnología</a></li>
+              <li><a href="/categorias/Mates.html" class="block px-4 py-2 hover:bg-gray-50">Estadistica y Matemáticas</a></li>
+              <li><a href="/categorias/tec.html" class="block px-4 py-2 hover:bg-gray-50">Ingenieria y tecnología</a></li>
               <li><a href="/categorias/derecho.html" class="block px-4 py-2 hover:bg-gray-50">Derecho y ciencias políticas</a></li>
               <li><a href="/categorias/ciencia.html" class="block px-4 py-2 hover:bg-gray-50">Ciencia</a></li>
-              <li><a href="/categorias/psicologia.html" class="block px-4 py-2 hover:bg-gray-50">Psicologia</a></li>
+              <li><a href="/categorias/psicologia.html" class="block px-4 py-2 hover:bg-gray-50">Psicologia y educacion</a></li>
             </ul>
           </div>
 
@@ -95,8 +113,8 @@
 
           <!-- Mobile submenu (FIX: quitado </li> extra) -->
           <ul id="catSub" class="md:hidden hidden flex-col gap-1 px-2 pb-2 pl-6 text-sm font-medium">
-            <li><a href="/categorias/Mates.html" class="block px-3 py-2 rounded-lg hover:bg-gray-50">Estadística y Matemáticas</a></li>
-            <li><a href="/categorias/tec.html" class="block px-3 py-2 rounded-lg hover:bg-gray-50">Ingeniería y tecnología</a></li>
+            <li><a href="/categorias/Mates.html" class="block px-3 py-2 rounded-lg hover:bg-gray-50">Estadistica Matemáticas</a></li>
+            <li><a href="/categorias/tec.html" class="block px-3 py-2 rounded-lg hover:bg-gray-50">Ingenieria y tecnología</a></li>
             <li><a href="/categorias/derecho.html" class="block px-3 py-2 rounded-lg hover:bg-gray-50">Derecho y ciencias políticas</a></li>
             <li><a href="/categorias/ciencia.html" class="block px-3 py-2 rounded-lg hover:bg-gray-50">Ciencia</a></li>
             <li><a href="/categorias/psicologia.html" class="block px-3 py-2 rounded-lg hover:bg-gray-50">Psicología y educación</a></li>
@@ -147,7 +165,7 @@
   <!-- ============================= MAIN ============================= -->
   <main class="max-w-[1400px] mx-auto px-3 md:px-6 py-12">
 <!-- HERO / VANTA topo + EFECTO DE ESCRITURA -->
-<section id="math-hero" aria-label="Termodinámica"
+<section id="math-hero" aria-label="Ciencia Politica : un manual"
   class="relative h-[65vh] min-h-[320px] overflow-hidden flex items-center justify-center rounded-2xl">
 
   <!-- Fondo animado (Vanta topo) -->
@@ -213,65 +231,65 @@ window.addEventListener("DOMContentLoaded", () => {
           <!-- Libro 1 -->
           <article
             class="book-card snap-start shrink-0 w-[260px] bg-white rounded-2xl shadow-sm ring-1 ring-black/5 hover:shadow-md transition p-5 cursor-pointer"
-            data-title="Termodinámica" data-author="Yunus A. Çengel; Michael A. Boles" data-image="/libros/termodi.png"
-            data-rating="4" data-isbn="9786071512819" data-year="2013" data-pages="997" data-genero="Termodinámica"
-            data-description="Este libro ofrece una introducción clara y accesible a los principios de la termodinámica aplicada a la ingeniería.">
+            data-title="Ciencia Politica : un manual" data-author="Josep M Valles,Salvad Marti Puig" data-image="/libros/manual.webp"
+            data-rating="4" data-isbn="9788434432758" data-year="2012" data-pages="464" data-genero="Ciencia Politica"
+            data-description="Manual introductorio sobre política, actores, instituciones y sistemas democráticos, actualizado con globalización y ciencias politicas sociales.">
             <div class="aspect-[3/4] w-full overflow-hidden rounded-xl bg-white">
-              <img src="/libros/termodi.png" alt="Termodinámica" class="h-full w-full object-contain p-1.5">
+              <img src="/libros/manual.webp" alt="Ciencia Politica : un manual" class="h-full w-full object-contain p-1.5">
             </div>
-            <h4 class="mt-4 text-lg font-semibold">Termodinámica</h4>
+            <h4 class="mt-4 text-lg font-semibold">Ciencia Politica : un manual</h4>
             <div class="mt-2 flex items-center gap-1 text-lime-500 text-sm">
               <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star text-gray-300"></i>
             </div>
-            <p class="mt-3 text-sm text-gray-500">Yunus A. Çengel; Michael A. Boles</p>
+            <p class="mt-3 text-sm text-gray-500">Josep M Valles,Salvad Marti Puig</p>
           </article>
 
           <!-- Libro 2 -->
           <article
             class="book-card snap-start shrink-0 w-[260px] bg-white rounded-2xl shadow-sm ring-1 ring-black/5 hover:shadow-md transition p-5 cursor-pointer"
-            data-title="Mecánica de materiales" data-author="Matthew N. O. Sadiku" data-image="/libros/Russel.webp" data-rating="4"
-            data-isbn="9786073240994" data-year="2017" data-pages="736" data-genero="Mecánica de materiales"
-            data-description="Esta obra presenta de forma clara y completa los principios físicos que explican cómo se comportan los materiales bajo cargas: tensión, deformación, flexión, torsión, esfuerzo combinado, entre otros. Incluye numerosos ejemplos y problemas resueltos para ilustrar tanto la teoría como su aplicación en estructuras y máquinas.">
+            data-title="Manual de ciencia Política" data-author="Rafael del Águila (coord.)" data-image="/libros/manual2.jpg" data-rating="4"
+            data-isbn="978-8481641899" data-year="2009" data-pages="502" data-genero="Manual de ciencia Política"
+            data-description="Recopilación de capítulos por especialistas; aborda los principales problemas contemporáneos de la ciencia política">
             <div class="aspect-[3/4] w-full overflow-hidden rounded-xl bg-white">
-              <img src="/libros/Russel.webp" alt="Mecánica de materiales" class="h-full w-full object-contain p-1.5">
+              <img src="/libros/manual2.jpg" alt="Manual de ciencia Política" class="h-full w-full object-contain p-1.5">
             </div>
-            <h4 class="mt-4 text-lg font-semibold">Mecánica de materiales</h4>
+            <h4 class="mt-4 text-lg font-semibold">Manual de ciencia Política</h4>
             <div class="mt-2 flex items-center gap-1 text-lime-500 text-sm">
               <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star text-gray-300"></i>
             </div>
-            <p class="mt-3 text-sm text-gray-500">Matthew N. O. Sadiku</p>
+            <p class="mt-3 text-sm text-gray-500">Rafael del Águila (coord.)</p>
           </article>
 
           <!-- Libro 3 -->
           <article
             class="book-card snap-start shrink-0 w-[260px] bg-white rounded-2xl shadow-sm ring-1 ring-black/5 hover:shadow-md transition p-5 cursor-pointer"
-            data-title="Fundamentos de circuitos eléctricos" data-author="Charles K. Alexander; Matthew N. O. Sadiku" data-image="/libros/Charles.jpg" data-rating="4"
-            data-isbn="9789702605751" data-year="2013" data-pages="736" data-genero="Fundamentos de circuitos eléctricos"
-            data-description="Un texto riguroso de diseño y análisis de sistemas de control moderno, dirigido a estudiantes de ingeniería mecánica, eléctrica, aeroespacial o química. ">
+            data-title="Sistema político español" data-author=" Josep Maria Reniu i Vilamala, Joan Antón Mellón" data-image="/libros/libro3D.jpg" data-rating="4"
+            data-isbn="9788415663102" data-year="2012" data-pages="458" data-genero="Sistema político español"
+            data-description="Manual sobre el sistema político español, sus instituciones, partidos y procesos de gobierno.">
             <div class="aspect-[3/4] w-full overflow-hidden rounded-xl bg-white">
-              <img src="/libros/Charles.jpg" alt="Fundamentos de circuitos eléctricos" class="h-full w-full object-contain p-1.5">
+              <img src="/libros/libro3D.jpg" alt="Sistema político español" class="h-full w-full object-contain p-1.5">
             </div>
-            <h4 class="mt-4 text-lg font-semibold">Fundamentos de circuitos eléctricos</h4>
+            <h4 class="mt-4 text-lg font-semibold">Sistema político español</h4>
             <div class="mt-2 flex items-center gap-1 text-lime-500 text-sm">
               <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star text-gray-300"></i>
             </div>
-            <p class="mt-3 text-sm text-gray-500">Charles K. Alexander; Matthew N. O. Sadiku</p>
+            <p class="mt-3 text-sm text-gray-500"> Josep Maria Reniu i Vilamala, Joan Antón Mellón</p>
           </article>
 
           <!-- Libro 4  me quede aqui--> 
           <article
             class="book-card snap-start shrink-0 w-[260px] bg-white rounded-2xl shadow-sm ring-1 ring-black/5 hover:shadow-md transition p-5 cursor-pointer"
-            data-title="Ingenería de control modernaes" data-author="Katsuhiko Ogata" data-image="/libros/ogata.webp"
-            data-rating="4" data-isbn="9788483226605" data-year="2010" data-pages="894" data-genero="Ingeniería"
-            data-description="Cubre modelado matemático, transformada de Laplace, respuesta transitoria, lugar de raíces, frecuencia, controladores PID, espacio de estados, e introduce el uso de MATLAB para análisis práctico.">
+            data-title="Introducción a las teorías políticas de la modernidad" data-author="Gary S. Schaal" data-image="/libros/libro4D.jpg"
+            data-rating="4" data-isbn="9788491430582" data-year="2016" data-pages="894" data-genero="Ciencias politicas"
+            data-description="Explora las principales teorías políticas modernas: liberalismo, marxismo, comunitarismo, entre otros.">
             <div class="aspect-[3/4] w-full overflow-hidden rounded-xl bg-white">
-              <img src="/libros/ogata.webp" alt="Ingenería de control modernaes" class="h-full w-full object-contain p-1.5">
+              <img src="/libros/libro4D.jpg" alt="Introducción a las teorías políticas de la modernidad" class="h-full w-full object-contain p-1.5">
             </div>
-            <h4 class="mt-4 text-lg font-semibold">Ingenería de control modernaes</h4>
+            <h4 class="mt-4 text-lg font-semibold">Introducción a las teorías políticas de la modernidad</h4>
             <div class="mt-2 flex items-center gap-1 text-lime-500 text-sm">
               <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star text-gray-300"></i>
             </div>
-            <p class="mt-3 text-sm text-gray-500">Katsuhiko Ogata</p>
+            <p class="mt-3 text-sm text-gray-500">Gary S. Schaal</p>
           </article>
         </div>
 
@@ -280,65 +298,65 @@ window.addEventListener("DOMContentLoaded", () => {
           <!-- Libro 1 -->
           <article
             class="book-card bg-white rounded-2xl shadow-sm ring-1 ring-black/5 hover:shadow-md transition p-5 cursor-pointer"
-            data-title="Termodinámica" data-author="Yunus A. Çengel; Michael A. Boles" data-image="/libros/termodi.png"
-            data-rating="5" data-isbn="9786071512819" data-year="2013" data-pages="997" data-genero="Termodinámica"
-            data-description="Este libro ofrece una introducción clara y accesible a los principios de la termodinámica aplicada a la ingeniería.">
+            data-title="Ciencia Politica : un manual" data-author="Josep M Valles,Salvad Marti Puig" data-image="/libros/manual.webp"
+            data-rating="5" data-isbn="9788434432758" data-year="2012" data-pages="464" data-genero="Ciencia Politica : un manual"
+            data-description="Este libro ofrece una introducción clara y accesible a los principios de la Ciencia Politica : un manual aplicada a la Ciencias politicas.">
             <div class="aspect-[3/4] w-full overflow-hidden rounded-xl bg-white">
-              <img src="/libros/termodi.png" alt="Termodinámica" class="h-full w-full object-contain p-2">
+              <img src="/libros/manual.webp" alt="Ciencia Politica : un manual" class="h-full w-full object-contain p-2">
             </div>
-            <h4 class="mt-4 text-lg font-semibold">Termodinámica</h4>
+            <h4 class="mt-4 text-lg font-semibold">Ciencia Politica : un manual</h4>
             <div class="mt-2 flex items-center gap-1 text-lime-500">
               <i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i>
             </div>
-            <p class="mt-3 text-sm text-gray-500">Yunus A. Çengel; Michael A. Boles</p>
+            <p class="mt-3 text-sm text-gray-500">Josep M Valles,Salvad Marti Puig</p>
           </article>
 
           <!-- Libro 2 -->
           <article
             class="book-card bg-white rounded-2xl shadow-sm ring-1 ring-black/5 hover:shadow-md transition p-5 cursor-pointer"
-            data-title="Mecánica de materiales" data-author="Matthew N. O. Sadiku" data-image="/libros/Russel.webp" data-rating="4"
-            data-isbn="9786073240994" data-year="2017" data-pages="736" data-genero="Mecánica de materiales"
-            data-description="Esta obra presenta de forma clara y completa los principios físicos que explican cómo se comportan los materiales bajo cargas: tensión, deformación, flexión, torsión, esfuerzo combinado, entre otros. Incluye numerosos ejemplos y problemas resueltos para ilustrar tanto la teoría como su aplicación en estructuras y máquinas.">
+            data-title="Manual de ciencia Política" data-author="Rafael del Águila (coord.)" data-image="/libros/manual2.jpg" data-rating="4"
+            data-isbn="978-8481641899" data-year="2009" data-pages="502" data-genero="Manual de ciencia Política"
+            data-description="Recopilación de capítulos por especialistas; aborda los principales problemas contemporáneos de la ciencia política">
             <div class="aspect-[3/4] w-full overflow-hidden rounded-xl bg-white">
-              <img src="/libros/Russel.webp" alt="Mecánica de materiales" class="h-full w-full object-contain p-2">
+              <img src="/libros/manual2.jpg" alt="Manual de ciencia Política" class="h-full w-full object-contain p-2">
             </div>
-            <h4 class="mt-4 text-lg font-semibold">Mecánica de materiales</h4>
+            <h4 class="mt-4 text-lg font-semibold">Manual de ciencia Política</h4>
             <div class="mt-2 flex items-center gap-1 text-lime-500">
               <i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-regular fa-star text-sm text-gray-300"></i>
             </div>
-            <p class="mt-3 text-sm text-gray-500">Matthew N. O. Sadiku</p>
+            <p class="mt-3 text-sm text-gray-500">Rafael del Águila (coord.)</p>
           </article>
 
           <!-- Libro 3 -->
           <article
             class="book-card bg-white rounded-2xl shadow-sm ring-1 ring-black/5 hover:shadow-md transition p-5 cursor-pointer"
-            data-title="Fundamentos de circuitos eléctricos" data-author="Charles K. Alexander; Matthew N. O. Sadiku" data-image="/libros/Charles.jpg" data-rating="4"
-            data-isbn="9789702605751" data-year="2013" data-pages="736" data-genero="Fundamentos de circuitos eléctricos"
-            data-description="Un texto riguroso de diseño y análisis de sistemas de control moderno, dirigido a estudiantes de ingeniería mecánica, eléctrica, aeroespacial o química. ">
+            data-title="Sistema político español" data-author=" Josep Maria Reniu i Vilamala, Joan Antón Mellón" data-image="/libros/libro3D.jpg" data-rating="4"
+            data-isbn="9788415663102" data-year="2012" data-pages="458" data-genero="Sistema político español"
+            data-description="Manual sobre el sistema político español, sus instituciones, partidos y procesos de gobierno.">
             <div class="aspect-[3/4] w-full overflow-hidden rounded-xl bg-white">
-              <img src="/libros/Charles.jpg" alt="Fundamentos de circuitos eléctricos" class="h-full w-full object-contain p-2">
+              <img src="/libros/libro3D.jpg" alt="Sistema político español" class="h-full w-full object-contain p-2">
             </div>
-            <h4 class="mt-4 text-lg font-semibold">Fundamentos de circuitos eléctricos</h4>
+            <h4 class="mt-4 text-lg font-semibold">Sistema político español</h4>
             <div class="mt-2 flex items-center gap-1 text-lime-500">
               <i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-regular fa-star text-sm text-gray-300"></i>
             </div>
-            <p class="mt-3 text-sm text-gray-500">Charles K. Alexander; Matthew N. O. Sadiku</p>
+            <p class="mt-3 text-sm text-gray-500"> Josep Maria Reniu i Vilamala, Joan Antón Mellón</p>
           </article>
 
           <!-- Libro 4 -->
           <article
             class="book-card bg-white rounded-2xl shadow-sm ring-1 ring-black/5 hover:shadow-md transition p-5 cursor-pointer"
-            data-title="Ingenería de control modernaes" data-author="Katsuhiko Ogata" data-image="/libros/ogata.webp"
-            data-rating="4" data-isbn="9788483226605" data-year="2010" data-pages="894" data-genero="Ingeniería"
-            data-description="Cubre modelado matemático, transformada de Laplace, respuesta transitoria, lugar de raíces, frecuencia, controladores PID, espacio de estados, e introduce el uso de MATLAB para análisis práctico.">
+            data-title="Introducción a las teorías políticas de la modernidad" data-author="Gary S. Schaal" data-image="/libros/libro4D.jpg"
+            data-rating="4" data-isbn="9788491430582" data-year="2016" data-pages="894" data-genero="Ciencias politicas"
+            data-description="Explora las principales teorías políticas modernas: liberalismo, marxismo, comunitarismo, entre otros.">
             <div class="aspect-[3/4] w-full overflow-hidden rounded-xl bg-white">
-              <img src="/libros/ogata.webp" alt="Ingenería de control modernaes" class="h-full w-full object-contain p-2">
+              <img src="/libros/libro4D.jpg" alt="Introducción a las teorías políticas de la modernidad" class="h-full w-full object-contain p-2">
             </div>
-            <h4 class="mt-4 text-lg font-semibold">Ingenería de control modernaes</h4>
+            <h4 class="mt-4 text-lg font-semibold">Introducción a las teorías políticas de la modernidad</h4>
             <div class="mt-2 flex items-center gap-1 text-lime-500">
               <i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-regular fa-star text-sm text-gray-300"></i>
             </div>
-            <p class="mt-3 text-sm text-gray-500">Katsuhiko Ogata</p>
+            <p class="mt-3 text-sm text-gray-500">Gary S. Schaal</p>
           </article>
         </div>
       </div>
@@ -355,65 +373,65 @@ window.addEventListener("DOMContentLoaded", () => {
         <!-- Libro 1  -->
         <article
           class="book-card snap-start shrink-0 w-[260px] bg-white rounded-2xl shadow-sm ring-1 ring-black/5 hover:shadow-md transition p-5 cursor-pointer"
-          data-title="Arquitectura de computadoras" data-author="Andrew S. Tanenbaum (c/ D. Wetherall)" data-image="/libros/redes.webp"
-          data-rating="4" data-isbn="9786073208178" data-year="2012" data-pages="672" data-genero="Redes"
-          data-description="Este libro ofrece una visión global de las redes de computadoras: desde el hardware y los medios de transmisión hasta los protocolos, la arquitectura de red, redes inalámbricas, VoIP y redes de igual a igual.">
+          data-title="l pensamiento político en sus textos: De Platón a Marx" data-author="Joan Botella Corral" data-image="/libros/libro5D.jpg"
+          data-rating="4" data-isbn="9788430925223" data-year="2012" data-pages="112" data-genero="ciencias politicas"
+          data-description="Antología de textos fundamentales de la historia del pensamiento político, con comentarios y marco histórico.">
           <div class="aspect-[3/4] w-full overflow-hidden rounded-xl bg-white">
-            <img src="/libros/redes.webp" alt="Arquitectura de computadoras" class="h-full w-full object-contain p-1.5">
+            <img src="/libros/libro5D.jpg" alt="l pensamiento político en sus textos: De Platón a Marx" class="h-full w-full object-contain p-1.5">
           </div>
-          <h4 class="mt-4 text-lg font-semibold">Arquitectura de computadoras</h4>
+          <h4 class="mt-4 text-lg font-semibold">l pensamiento político en sus textos: De Platón a Marx</h4>
           <div class="mt-2 flex items-center gap-1 text-lime-500 text-sm">
             <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star text-gray-300"></i>
           </div>
-          <p class="mt-3 text-sm text-gray-500">Andrew S. Tanenbaum (c/ D. Wetherall)</p>
+          <p class="mt-3 text-sm text-gray-500">Joan Botella Corral</p>
         </article>
 
         <!-- Libro 2 hereee -->
         <article
           class="book-card snap-start shrink-0 w-[260px] bg-white rounded-2xl shadow-sm ring-1 ring-black/5 hover:shadow-md transition p-5 cursor-pointer"
-          data-title="Sistemas Operativos: conceptos fundamentales" data-author="Abraham Silberschatz; James L. Peterson" data-image="/libros/so.jpg" data-rating="4"
-          data-isbn="9788429126938" data-year="2019" data-pages="376" data-genero="Estadística"
-          data-description="exto introductorio sobre sistemas operativos que explica los conceptos esenciales que subyacen a todos los sistemas: gestión de procesos, memoria, archivos, almacenamiento secundario, sistemas distribuidos.">
+          data-title="La teoría política del individualismo posesivo" data-author="C. B. Macpherson" data-image="/libros/libro6D.jpg" data-rating="4"
+          data-isbn="9788429333338" data-year="2019" data-pages="376" data-genero="ciencias política"
+          data-description="Estudio sobre la tradición liberal del individualismo y cómo los filósofos Hobbes y Locke lo conceptualizaron.">
           <div class="aspect-[3/4] w-full overflow-hidden rounded-xl bg-white">
-            <img src="/libros/so.jpg" alt="Sistemas Operativos: conceptos fundamentales" class="h-full w-full object-contain p-1.5">
+            <img src="/libros/libro6D.jpg" alt="La teoría política del individualismo posesivo" class="h-full w-full object-contain p-1.5">
           </div>
-          <h4 class="mt-4 text-lg font-semibold">Sistemas Operativos: conceptos fundamentales</h4>
+          <h4 class="mt-4 text-lg font-semibold">La teoría política del individualismo posesivo</h4>
           <div class="mt-2 flex items-center gap-1 text-lime-500 text-sm">
             <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star text-gray-300"></i>
           </div>
-          <p class="mt-3 text-sm text-gray-500">Abraham Silberschatz; James L. Peterson</p>
+          <p class="mt-3 text-sm text-gray-500">C. B. Macpherson</p>
         </article>
 
         <!-- Libro 3 -->
         <article
           class="book-card snap-start shrink-0 w-[260px] bg-white rounded-2xl shadow-sm ring-1 ring-black/5 hover:shadow-md transition p-5 cursor-pointer"
-          data-title="Elementos de electromagnetismo" data-author="Matthew N. O. Sadiku" data-image="/libros/elementos.webp"
-          data-rating="4" data-isbn="9789706136725" data-year="2002" data-pages="784" data-genero="Ingeniería"
-          data-description="Una obra centrada en los fundamentos del electromagnetismo: campos eléctricos y magnéticos, leyes de Maxwell, ondas electromagnéticas, aplicaciones en ingeniería eléctrica y electrónica.">
+          data-title="POLÍTICA PARA AMADOR" data-author="Fernando Savater" data-image="/libros/libro7D.webp"
+          data-rating="4" data-isbn="9788434433830" data-year="2021" data-pages="200" data-genero="Ciencias politicas"
+          data-description="Ensayo accesible que introduce la política y el compromiso ciudadano de forma didáctica.">
           <div class="aspect-[3/4] w-full overflow-hidden rounded-xl bg-white">
-            <img src="/libros/elementos.webp" alt="Elementos de electromagnetismo" class="h-full w-full object-contain p-1.5">
+            <img src="/libros/libro7D.webp" alt="POLÍTICA PARA AMADOR" class="h-full w-full object-contain p-1.5">
           </div>
-          <h4 class="mt-4 text-lg font-semibold">Elementos de electromagnetismo</h4>
+          <h4 class="mt-4 text-lg font-semibold">POLÍTICA PARA AMADOR</h4>
           <div class="mt-2 flex items-center gap-1 text-lime-500 text-sm">
             <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star text-gray-300"></i>
           </div>
-          <p class="mt-3 text-sm text-gray-500">Matthew N. O. Sadiku</p>
+          <p class="mt-3 text-sm text-gray-500">Fernando Savater</p>
         </article>
 
         <!-- Libro 4 (AÑADIDO) -->
         <article
           class="book-card snap-start shrink-0 w-[260px] bg-white rounded-2xl shadow-sm ring-1 ring-black/5 hover:shadow-md transition p-5 cursor-pointer"
-          data-title="Fundamentos de matemática universitaria" data-author="Stephen J. Chapman" data-image="/libros/Maquinas_electricas_Chapman_5_ed.jpg"
-          data-rating="4" data-isbn="9786071507242" data-year="2012" data-pages="520" data-genero="Ingeniería"
-          data-description="Manual que trata los principios y diseño de máquinas eléctricas (motores, generadores, transformadores): funcionamiento, construcción, análisis, rendimiento, pérdidas, mantenimiento. Enfocado a la ingeniería eléctrica industrial.">
+          data-title="Derecho penal parte general y especial aplicada" data-author="Morales Brand, José Luis Eloy" data-image="/libros/libro8D.webp"
+          data-rating="4" data-isbn="9786078645732" data-year="2012" data-pages="300" data-genero="Ciencias politicas"
+          data-description="Manual exhaustivo sobre la parte general del derecho penal español, abarcando fundamentos, fuentes, sistema de responsabilidad penal y mecanismos de sanción.">
           <div class="aspect-[3/4] w-full overflow-hidden rounded-xl bg-white">
-            <img src="/libros/Maquinas_electricas_Chapman_5_ed.jpg" alt="Fundamentos de matemática universitaria" class="h-full w-full object-contain p-1.5">
+            <img src="/libros/libro8D.webp" alt="Derecho penal parte general y especial aplicada" class="h-full w-full object-contain p-1.5">
           </div>
-          <h4 class="mt-4 text-lg font-semibold">Fundamentos de matemática universitaria</h4>
+          <h4 class="mt-4 text-lg font-semibold">Derecho penal parte general y especial aplicada</h4>
           <div class="mt-2 flex items-center gap-1 text-lime-500 text-sm">
             <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star text-gray-300"></i>
           </div>
-          <p class="mt-3 text-sm text-gray-500">Stephen J. Chapman</p>
+          <p class="mt-3 text-sm text-gray-500">Morales Brand, José Luis Eloy</p>
         </article>
       </div>
 
@@ -422,65 +440,65 @@ window.addEventListener("DOMContentLoaded", () => {
         <!-- Libro 1 -->
         <article
           class="book-card bg-white rounded-2xl shadow-sm ring-1 ring-black/5 hover:shadow-md transition p-5 cursor-pointer"
-          data-title="Arquitectura de computadoras" data-author="Andrew S. Tanenbaum (c/ D. Wetherall)" data-image="/libros/redes.webp"
-          data-rating="4" data-isbn="9786073208178" data-year="2012" data-pages="672" data-genero="Redes"
-          data-description="Testimonio y visión de la logoterapia sobre el propósito de vida a partir de la experiencia en campos de concentración.">
+          data-title="l pensamiento político en sus textos: De Platón a Marx" data-author="Joan Botella Corral" data-image="/libros/libro5D.jpg"
+          data-rating="4" data-isbn="9788430925223" data-year="2012" data-pages="112" data-genero="ciencias politicas"
+          data-description="Antología de textos fundamentales de la historia del pensamiento político, con comentarios y marco histórico.">
           <div class="aspect-[3/4] w-full overflow-hidden rounded-xl bg-white">
-            <img src="/libros/redes.webp" alt="Arquitectura de computadoras" class="h-full w-full object-contain p-2">
+            <img src="/libros/libro5D.jpg" alt="l pensamiento político en sus textos: De Platón a Marx" class="h-full w-full object-contain p-2">
           </div>
-          <h4 class="mt-4 text-lg font-semibold">Arquitectura de computadoras</h4>
+          <h4 class="mt-4 text-lg font-semibold">l pensamiento político en sus textos: De Platón a Marx</h4>
           <div class="mt-2 flex items-center gap-1 text-lime-500">
             <i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-regular fa-star text-sm text-gray-300"></i>
           </div>
-          <p class="mt-3 text-sm text-gray-500">Andrew S. Tanenbaum (c/ D. Wetherall)</p>
+          <p class="mt-3 text-sm text-gray-500">Joan Botella Corral</p>
         </article>
 
         <!-- Libro 2 -->
         <article
           class="book-card bg-white rounded-2xl shadow-sm ring-1 ring-black/5 hover:shadow-md transition p-5 cursor-pointer"
-          data-title="Sistemas Operativos: conceptos fundamentales" data-author="Abraham Silberschatz; James L. Peterson" data-image="/libros/so.jpg" data-rating="4"
-          data-isbn="9788429126938" data-year="2019" data-pages="376" data-genero="Estadística"
-          data-description="exto introductorio sobre sistemas operativos que explica los conceptos esenciales que subyacen a todos los sistemas: gestión de procesos, memoria, archivos, almacenamiento secundario, sistemas distribuidos.">
+          data-title="La teoría política del individualismo posesivo" data-author="C. B. Macpherson" data-image="/libros/libro6D.jpg" data-rating="4"
+          data-isbn="9788429333338" data-year="2019" data-pages="376" data-genero="ciencias política"
+          data-description="Estudio sobre la tradición liberal del individualismo y cómo los filósofos Hobbes y Locke lo conceptualizaron.">
           <div class="aspect-[3/4] w-full overflow-hidden rounded-xl bg-white">
-            <img src="/libros/so.jpg" alt="Sistemas Operativos: conceptos fundamentales" class="h-full w-full object-contain p-2">
+            <img src="/libros/libro6D.jpg" alt="La teoría política del individualismo posesivo" class="h-full w-full object-contain p-2">
           </div>
-          <h4 class="mt-4 text-lg font-semibold">Sistemas Operativos: conceptos fundamentales</h4>
+          <h4 class="mt-4 text-lg font-semibold">La teoría política del individualismo posesivo</h4>
           <div class="mt-2 flex items-center gap-1 text-lime-500">
             <i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-regular fa-star text-sm text-gray-300"></i>
           </div>
-          <p class="mt-3 text-sm text-gray-500">Abraham Silberschatz; James L. Peterson</p>
+          <p class="mt-3 text-sm text-gray-500">C. B. Macpherson</p>
         </article>
 
         <!-- Libro 3 DESKTOP--> 
         <article
           class="book-card bg-white rounded-2xl shadow-sm ring-1 ring-black/5 hover:shadow-md transition p-5 cursor-pointer"
-          data-title="Elementos de electromagnetismo" data-author="Matthew N. O. Sadiku" data-image="/libros/elementos.webp"
-          data-rating="4" data-isbn="9789706136725" data-year="2002" data-pages="784" data-genero="Ingeniería"
-          data-description="Una obra centrada en los fundamentos del electromagnetismo: campos eléctricos y magnéticos, leyes de Maxwell, ondas electromagnéticas, aplicaciones en ingeniería eléctrica y electrónica.">
+          data-title="POLÍTICA PARA AMADOR" data-author="Fernando Savater" data-image="/libros/libro7D.webp"
+          data-rating="4" data-isbn="9788434433830" data-year="2021" data-pages="200" data-genero="Ciencias politicas"
+          data-description="Ensayo accesible que introduce la política y el compromiso ciudadano de forma didáctica.">
           <div class="aspect-[3/4] w-full overflow-hidden rounded-xl bg-white">
-            <img src="/libros/elementos.webp" alt="Elementos de electromagnetismo" class="h-full w-full object-contain p-2">
+            <img src="/libros/libro7D.webp" alt="POLÍTICA PARA AMADOR" class="h-full w-full object-contain p-2">
           </div>
-          <h4 class="mt-4 text-lg font-semibold">Elementos de electromagnetismo</h4>
+          <h4 class="mt-4 text-lg font-semibold">POLÍTICA PARA AMADOR</h4>
           <div class="mt-2 flex items-center gap-1 text-lime-500">
             <i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-regular fa-star text-sm text-gray-300"></i>
           </div>
-          <p class="mt-3 text-sm text-gray-500">Matthew N. O. Sadiku</p>
+          <p class="mt-3 text-sm text-gray-500">Fernando Savater</p>
         </article>
 
         <!-- Libro 4 -->
         <article
           class="book-card bg-white rounded-2xl shadow-sm ring-1 ring-black/5 hover:shadow-md transition p-5 cursor-pointer"
-          data-title="Fundamentos de matemática universitaria" data-author="Stephen J. Chapman" data-image="/libros/Maquinas_electricas_Chapman_5_ed.jpg"
-          data-rating="4" data-isbn="9786071507242" data-year="2012" data-pages="520" data-genero="Ingeniería"
-          data-description="Manual que trata los principios y diseño de máquinas eléctricas (motores, generadores, transformadores): funcionamiento, construcción, análisis, rendimiento, pérdidas, mantenimiento. Enfocado a la ingeniería eléctrica industrial.">
+          data-title="Derecho penal parte general y especial aplicada" data-author="Morales Brand, José Luis Eloy" data-image="/libros/libro8D.webp"
+          data-rating="4" data-isbn="9786078645732" data-year="2012" data-pages="300" data-genero="Ciencias politicas"
+          data-description="Manual exhaustivo sobre la parte general del derecho penal español, abarcando fundamentos, fuentes, sistema de responsabilidad penal y mecanismos de sanción.">
           <div class="aspect-[3/4] w-full overflow-hidden rounded-xl bg-white">
-            <img src="/libros/Maquinas_electricas_Chapman_5_ed.jpg" alt="Fundamentos de matemática universitaria" class="h-full w-full object-contain p-2">
+            <img src="/libros/libro8D.webp" alt="Derecho penal parte general y especial aplicada" class="h-full w-full object-contain p-2">
           </div>
-          <h4 class="mt-4 text-lg font-semibold">Fundamentos de matemática universitaria</h4>
+          <h4 class="mt-4 text-lg font-semibold">Derecho penal parte general y especial aplicada</h4>
           <div class="mt-2 flex items-center gap-1 text-lime-500">
             <i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-solid fa-star text-sm"></i><i class="fa-regular fa-star text-sm text-gray-300"></i>
           </div>
-          <p class="mt-3 text-sm text-gray-500">Stephen J. Chapman</p>
+          <p class="mt-3 text-sm text-gray-500">Morales Brand, José Luis Eloy</p>
         </article>
       </div>
     </section>
@@ -496,13 +514,13 @@ window.addEventListener("DOMContentLoaded", () => {
         <div>
           <h2 id="footer-title" class="text-3xl sm:text-4xl font-semibold tracking-tight text-slate-900">FairView</h2>
           <p class="mt-3 text-sm leading-6 text-slate-700 max-w-sm">
-            Reservá tus libros favoritos fácilmente. FairView te conecta con Fundamentos de circuitos eléctricoss y conocimiento sin complicaciones.
+            Reservá tus libros favoritos fácilmente. FairView te conecta con Sistema político españols y conocimiento sin complicaciones.
           </p>
         </div>
 
         <!-- Col 2 -->
         <div>
-          <h3 class="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-700">Home</h3>
+          <h3 class="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-700">Inicio</h3>
           <ul class="space-y-2">
             <li><a href="#" class="text-sm text-slate-700 hover:text-slate-900 hover:underline underline-offset-4">Inicio</a></li>
             <li><a href="#" class="text-sm text-slate-700 hover:text-slate-900 hover:underline underline-offset-4">Categorías</a></li>
@@ -525,19 +543,19 @@ window.addEventListener("DOMContentLoaded", () => {
             </p>
           </div>
 
-          <!-- Redes -->
+          <!-- ciencias politicas -->
           <div class="mt-4 flex items-center gap-3">
             <a href="#" aria-label="Facebook" class="block transition-opacity text-inherit hover:opacity-80">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path fill-rule="evenodd"
-                  d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.736v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
+                  d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.502v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
                   clip-rule="evenodd"></path>
               </svg>
             </a>
 
             <a href="#" aria-label="Instagram" class="block transition-opacity text-inherit hover:opacity-80">
               <svg xmlns="http://www.w3.org/8940/svg" width="28" height="28" viewBox="0 0 71 72" fill="none">
-                <path d="M27.3762 35.7808C27.3762 31.1786 31.1083 27.4468 35.7132 27.4468C40.3182 27.4468 44.0522 31.1786 44.0522 35.7808C44.0522 40.383 40.3182 44.1148 35.7132 44.1148C31.1083 44.1148 27.3762 40.383 27.3762 35.7808ZM22.8683 35.7808C22.8683 42.8708 28.619 48.618 35.7132 48.618C42.8075 48.618 48.5581 42.8708 48.5581 35.7808C48.5581 28.6908 42.8075 22.9436 35.7132 22.9436C28.619 22.9436 22.8683 28.6908 22.8683 35.7808ZM46.0736 22.4346C46.0646 23.0279 46.2404 23.608 46.5701 24.1015C46.8997 24.595 47.3684 24.9797 47.9168 25.2069C48.4652 25.4342 49.0688 25.4939 49.6511 25.3784C50.2334 25.2628 50.7684 24.9773 51.1884 24.5579C51.6084 24.1385 51.8945 23.6041 52.0105 23.0222C52.1266 22.4403 52.0674 21.8371 51.8404 21.2888C51.6134 20.7406 51.2289 20.2719 50.7354 19.942C50.2418 19.6122 49.6615 19.436 49.0679 19.4358H49.0667C48.2708 19.4361 47.5077 19.7522 46.9449 20.3144C46.3821 20.8767 46.0655 21.6392 46.0736 22.4346ZM25.6072 56.1302C23.1683 56.0192 21.8427 55.6132 20.9618 55.2702C19.7939 54.8158 18.9606 54.2746 18.0845 53.4002C17.2083 52.5258 16.666 51.6938 16.2133 50.5266C15.8699 49.6466 15.4637 48.3214 15.6248 45.884C15.2316 43.2488 15.2073 42.4572 15.2073 35.781C15.2073 29.1048 15.2336 28.3154 15.6248 25.678C15.4639 23.2406 15.8731 21.918 16.2133 21.0354C16.668 19.8682 17.2095 19.0354 18.0845 18.1598C18.9594 17.2842 19.7919 16.7422 20.9618 16.2898C21.8423 15.9466 23.1683 15.5406 25.6072 15.4298C28.244 15.3086 29.036 15.2844 35.7132 15.2844C42.3904 15.2844 43.1833 15.3106 45.8223 15.4298C48.2612 15.5408 49.9976 15.9498 50.4677 16.2898C51.6356 16.7422 52.4689 17.2854 53.345 18.1598C54.2211 19.0342 54.7615 19.8682 55.2161 21.0354C55.5595 21.9154 55.9658 23.2406 56.0767 25.678C56.1979 28.3154 56.2221 29.1048 56.2221 35.781C56.2221 42.4572 56.1979 43.2466 56.0767 45.884C55.9656 48.3214 55.5573 49.6462 55.2161 50.5266C54.7615 51.6938 54.2199 52.5266 53.345 53.4002C52.4701 54.2738 51.6356 54.8158 50.4677 55.2702C49.5872 55.6134 48.2612 56.0194 45.8223 56.1302C43.1855 56.2514 42.3934 56.2756 35.7132 56.2756C29.033 56.2756 28.2432 56.2514 25.6072 56.1302Z"
+                <path d="M27.3762 35.7808C27.3762 31.1786 31.1083 27.4468 35.7132 27.4468C40.3182 27.4468 44.0522 31.1786 44.0522 35.7808C44.0522 40.383 40.3182 44.1148 35.7132 44.1148C31.1083 44.1148 27.3762 40.383 27.3762 35.7808ZM22.8683 35.7808C22.8683 42.8708 28.619 48.618 35.7132 48.618C42.8075 48.618 48.5581 42.8708 48.5581 35.7808C48.5581 28.6908 42.8075 22.9436 35.7132 22.9436C28.619 22.9436 22.8683 28.6908 22.8683 35.7808ZM46.0502 22.4346C46.0646 23.0279 46.2404 23.608 46.5701 24.1015C46.8464 24.595 47.3684 24.9797 47.9168 25.2069C48.4652 25.4342 49.0688 25.4939 49.6511 25.3784C50.2334 25.2628 50.7684 24.9773 51.1884 24.5579C51.6084 24.1385 51.8945 23.6041 52.0105 23.0222C52.1266 22.4403 52.0674 21.8371 51.8404 21.2888C51.6134 20.7406 51.2289 20.2719 50.7354 19.942C50.2418 19.6122 49.6615 19.436 49.0679 19.4358H49.0667C48.2708 19.4361 47.5077 19.7522 46.9449 20.3144C46.3821 20.8767 46.0655 21.6392 46.0502 22.4346ZM25.6072 56.1302C23.1683 56.0192 21.8427 55.6132 20.9618 55.2702C19.7939 54.8158 18.9606 54.2746 18.0845 53.4002C17.2083 52.5258 16.666 51.6938 16.2133 50.5266C15.8699 49.6466 15.4637 48.3214 15.6248 45.884C15.2316 43.2488 15.2073 42.4572 15.2073 35.781C15.2073 29.1048 15.2336 28.3154 15.6248 25.678C15.4639 23.2406 15.8731 21.918 16.2133 21.0354C16.668 19.8682 17.2095 19.0354 18.0845 18.1598C18.9594 17.2842 19.7919 16.7422 20.9618 16.2898C21.8423 15.9466 23.1683 15.5406 25.6072 15.4298C28.244 15.3086 29.036 15.2844 35.7132 15.2844C42.3904 15.2844 43.1833 15.3106 45.8223 15.4298C48.2612 15.5408 49.4646 15.9498 50.4677 16.2898C51.6356 16.7422 52.4689 17.2854 53.345 18.1598C54.2211 19.0342 54.7615 19.8682 55.2161 21.0354C55.5595 21.9154 55.9658 23.2406 56.0767 25.678C56.1979 28.3154 56.2221 29.1048 56.2221 35.781C56.2221 42.4572 56.1979 43.2466 56.0767 45.884C55.9656 48.3214 55.5573 49.6462 55.2161 50.5266C54.7615 51.6938 54.2199 52.5266 53.345 53.4002C52.4701 54.2738 51.6356 54.8158 50.4677 55.2702C49.5872 55.6134 48.2612 56.0194 45.8223 56.1302C43.1855 56.2514 42.3934 56.2756 35.7132 56.2756C29.033 56.2756 28.2432 56.2514 25.6072 56.1302Z"
                   fill="#111827" />
               </svg>
             </a>

@@ -42,7 +42,7 @@
     - Menú desktop como fila. Menú mobile se abre como lista vertical.
   -->
   <header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-gray-100">
-    <nav class="w-full h-16 px-2 md:px-4 flex items-center justify-between">
+    <nav class="bg-[#F4F0E8] w-full h-16 px-2 md:px-4 flex items-center justify-between">
       <!-- Lado izquierdo: logo y buscador -->
       <div class="flex items-start gap-3 min-w-0">
         <a href="home.html" class="shrink-0 block">
@@ -58,6 +58,26 @@
                    placeholder:text-gray-400 focus:bg-white focus:border-gray-300 focus:ring-4 focus:ring-black/5 transition" />
         </div>
       </div>
+
+              <!-- ICONOS MOBILE -->
+      <div class="flex items-center gap-3 md:hidden ml-auto">
+        <button id="notifBtnMobile"
+          class="relative w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-100 transition">
+          <i class="fa-regular fa-bell text-[20px]"></i>
+          <span id="notifBadgeMobile"
+            class="absolute -top-1 -right-1 bg-red-500 text-white text-xs px-1.5 rounded-full hidden"></span>
+        </button>
+
+        <a href="/profile.html"
+          class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-100 transition"
+          aria-label="Cuenta">
+          <i class="fa-regular fa-user text-[20px]"></i>
+        </a>
+
+
+      </div>
+
+      
 
       <!-- Botón hamburguesa solo en mobile -->
       <button id="menuBtn" aria-label="Abrir menú" class="md:hidden text-2xl p-2 rounded-md hover:bg-gray-100">
@@ -88,6 +108,8 @@
               class="pointer-events-none absolute left-0 -bottom-1 h-[2px] w-full scale-x-0 bg-black origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
           </a>
 
+          
+
           <!-- Dropdown desktop -->
           <div class="hidden md:block absolute left-0 top-full mt-2 w-56 rounded-xl border border-gray-100 bg-white shadow-lg z-50
                        opacity-0 pointer-events-none translate-y-1 transition-all duration-150
@@ -101,6 +123,7 @@
             </ul>
           </div>
 
+          
           <!-- Trigger mobile -->
           <button id="catBtn"
             class="md:hidden w-full text-center px-4 py-2 font-semibold inline-flex items-center justify-between"
