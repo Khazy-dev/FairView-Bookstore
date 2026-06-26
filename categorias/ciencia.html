@@ -41,7 +41,7 @@
         <div class="relative hidden sm:block">
           <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
           <input type="text" placeholder="Autor, libro o ISBN" aria-label="Buscar"
-            class="w-64 lg:w-72 pl-10 pr-4 h-10 rounded-full bg-gray-50 border border-gray-894 outline-none
+            class="w-64 lg:w-72 pl-10 pr-4 h-10 rounded-full bg-gray-50 border border-gray-200 outline-none
                    placeholder:text-gray-400 focus:bg-white focus:border-gray-300 focus:ring-4 focus:ring-black/5 transition" />
         </div>
       </div>
@@ -109,7 +109,7 @@
           <button id="catBtn" class="md:hidden w-full text-center px-4 py-2 font-semibold inline-flex items-center justify-between"
             aria-expanded="false" aria-controls="catSub" type="button">
             <span>Categorías</span>
-            <i id="catIcon" class="fa-solid fa-angle-down text-sm transition-transform duration-894"></i>
+            <i id="catIcon" class="fa-solid fa-angle-down text-sm transition-transform duration-200"></i>
           </button>
 
           <!-- Mobile submenu (FIX: quitado </li> extra) -->
@@ -126,6 +126,12 @@
         <li>
           <a href="/reservas.html" class="group relative px-1 py-1 font-semibold">
             Reservas
+            <span class="pointer-events-none absolute left-0 -bottom-1 h-[2px] w-full scale-x-0 bg-black origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
+          </a>
+        </li>
+        <li>
+          <a href="/lista.html" class="group relative px-1 py-1 font-semibold">
+            Mi lista
             <span class="pointer-events-none absolute left-0 -bottom-1 h-[2px] w-full scale-x-0 bg-black origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
           </a>
         </li>
@@ -519,7 +525,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
   <!-- ============================= FOOTER ============================= -->
   <footer class="w-full bg-[#F4F0E8]" aria-labelledby="footer-title">
-    <div class="h-px w-full-gradient-to-r from-transparent via-slate-300 to-transparent"></div>
+    <div class="h-px w-full bg-gradient-to-r from-transparent via-slate-300 to-transparent"></div>
 
     <div class="mx-auto max-w-7xl px-6 sm:px-8 pt-10 pb-8">
       <div class="grid grid-cols-1 gap-10 md:grid-cols-3">
@@ -567,7 +573,7 @@ window.addEventListener("DOMContentLoaded", () => {
             </a>
 
             <a href="#" aria-label="Instagram" class="block transition-opacity text-inherit hover:opacity-80">
-              <svg xmlns="http://www.w3.org/8940/svg" width="28" height="28" viewBox="0 0 71 72" fill="none">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 71 72" fill="none">
                 <path d="M27.3762 35.7808C27.3762 31.1786 31.1083 27.4468 35.7132 27.4468C40.3182 27.4468 44.0522 31.1786 44.0522 35.7808C44.0522 40.383 40.3182 44.1148 35.7132 44.1148C31.1083 44.1148 27.3762 40.383 27.3762 35.7808ZM22.8683 35.7808C22.8683 42.8708 28.619 48.618 35.7132 48.618C42.8075 48.618 48.5581 42.8708 48.5581 35.7808C48.5581 28.6908 42.8075 22.9436 35.7132 22.9436C28.619 22.9436 22.8683 28.6908 22.8683 35.7808ZM46.0736 22.4346C46.0646 23.0279 46.2404 23.608 46.5701 24.1015C46.8256 24.595 47.3684 24.9797 47.9168 25.2069C48.4652 25.4342 49.0688 25.4939 49.6511 25.3784C50.2334 25.2628 50.7684 24.9773 51.1884 24.5579C51.6084 24.1385 51.8945 23.6041 52.0105 23.0222C52.1266 22.4403 52.0674 21.8371 51.8404 21.2888C51.6134 20.7406 51.2289 20.2719 50.7354 19.942C50.2418 19.6122 49.6615 19.436 49.0679 19.4358H49.0667C48.2708 19.4361 47.5077 19.7522 46.9449 20.3144C46.3821 20.8767 46.0655 21.6392 46.0736 22.4346ZM25.6072 56.1302C23.1683 56.0192 21.8427 55.6132 20.9618 55.2702C19.7939 54.8158 18.9606 54.2746 18.0845 53.4002C17.2083 52.5258 16.666 51.6938 16.2133 50.5266C15.8699 49.6466 15.4637 48.3214 15.6248 45.884C15.2316 43.2488 15.2073 42.4572 15.2073 35.781C15.2073 29.1048 15.2336 28.3154 15.6248 25.678C15.4639 23.2406 15.8731 21.918 16.2133 21.0354C16.668 19.8682 17.2095 19.0354 18.0845 18.1598C18.9594 17.2842 19.7919 16.7422 20.9618 16.2898C21.8423 15.9466 23.1683 15.5406 25.6072 15.4298C28.244 15.3086 29.036 15.2844 35.7132 15.2844C42.3904 15.2844 43.1833 15.3106 45.8223 15.4298C48.2612 15.5408 49.2566 15.9498 50.4677 16.2898C51.6356 16.7422 52.4689 17.2854 53.345 18.1598C54.2211 19.0342 54.7615 19.8682 55.2161 21.0354C55.5595 21.9154 55.9658 23.2406 56.0767 25.678C56.1979 28.3154 56.2221 29.1048 56.2221 35.781C56.2221 42.4572 56.1979 43.2466 56.0767 45.884C55.9656 48.3214 55.5573 49.6462 55.2161 50.5266C54.7615 51.6938 54.2199 52.5266 53.345 53.4002C52.4701 54.2738 51.6356 54.8158 50.4677 55.2702C49.5872 55.6134 48.2612 56.0194 45.8223 56.1302C43.1855 56.2514 42.3934 56.2756 35.7132 56.2756C29.033 56.2756 28.2432 56.2514 25.6072 56.1302Z"
                   fill="#111827" />
               </svg>
@@ -648,7 +654,7 @@ window.addEventListener("DOMContentLoaded", () => {
                   <i class="fa-solid fa-book-open"></i>
                   Reservar
                 </button>
-                <button class="inline-flex items-center gap-2 px-4 h-11 rounded-lg border border-gray-894 hover:bg-gray-50 transition">
+                <button class="inline-flex items-center gap-2 px-4 h-11 rounded-lg border border-gray-200 hover:bg-gray-50 transition">
                   <i class="fa-regular fa-heart"></i>
                   Añadir a lista
                 </button>

@@ -154,6 +154,12 @@
           </a>
         </li>
         <li>
+          <a href="/lista.html" class="group relative px-1 py-1 font-semibold">
+            Mi lista
+            <span class="pointer-events-none absolute left-0 -bottom-1 h-[2px] w-full scale-x-0 bg-black origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
+          </a>
+        </li>
+        <li>
           <a href="faqs.html" class="group relative px-1 py-1 font-semibold">
             FAQs
             <span
@@ -186,10 +192,23 @@
     Edit profile
   </h1>
 
+  <!-- Cabecera del perfil: avatar con iniciales, nombre, correo y reservas activas -->
+  <div class="bg-white rounded-xl shadow-sm ring-1 ring-slate-200 p-5 mb-6 flex items-center gap-4">
+    <div id="avatar" class="h-16 w-16 shrink-0 rounded-full bg-indigo-900 text-white flex items-center justify-center text-xl font-semibold">FV</div>
+    <div class="min-w-0">
+      <p id="hdrName" class="text-lg font-semibold text-slate-900 truncate">Tu nombre</p>
+      <p id="hdrEmail" class="text-sm text-slate-500 truncate">tucorreo@ejemplo.com</p>
+    </div>
+    <a href="reservas.html" class="ml-auto text-center shrink-0 rounded-lg px-3 py-1 hover:bg-slate-50 transition">
+      <p id="hdrCount" class="text-2xl font-bold text-indigo-900">0</p>
+      <p class="text-xs text-slate-500">reservas activas</p>
+    </a>
+  </div>
+
   <!-- Card contenedora -->
   <div class="bg-white rounded-xl shadow-sm ring-1 ring-slate-200">
     <!-- Padding interno de la card -->
-    <form class="p-6 sm:p-8">
+    <form class="p-6 sm:p-8" method="POST">
       <!-- Grid principal: 1 col en mobile, 2 col desde md -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         
@@ -227,7 +246,20 @@
           <input id="email" name="email" type="email" autocomplete="email"
                  placeholder="Email"
                  class="mt-2 block w-full rounded-lg border border-slate-200 bg-slate-50
-              text-slate-800 placeholder-slate-400 
+              text-slate-800 placeholder-slate-400
+              px-5 py-2
+              focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition">
+        </div>
+
+        <!-- Campo: Matrícula -->
+        <div>
+          <label for="matricula" class="block text-sm font-medium text-slate-700">
+            Matrícula
+          </label>
+          <input id="matricula" name="matricula" type="text"
+                 placeholder="Matrícula"
+                 class="mt-2 block w-full rounded-lg border border-slate-200 bg-slate-50
+              text-slate-800 placeholder-slate-400
               px-5 py-2
               focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition">
         </div>
@@ -272,10 +304,20 @@
         </div>
       </div>
 
-      <!-- Acciones: alineadas a la derecha como en la imagen -->
-      <div class="mt-10 flex items-center justify-end gap-4">
+      <!-- Acciones: cerrar sesión a la izquierda, cancelar/guardar a la derecha -->
+      <div class="mt-10 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+        <!-- Botón Cerrar sesión -->
+        <button type="button" id="btnLogout"
+                class="inline-flex items-center justify-center gap-2 rounded-lg
+                       px-6 py-2 text-base font-medium text-red-600
+                       hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-200">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          Cerrar sesión
+        </button>
+
+        <div class="flex items-center justify-end gap-4">
         <!-- Botón Cancel (outlined) -->
-        <button type="button"
+        <button type="button" id="btnCancel"
                 class="inline-flex items-center justify-center rounded-lg border border-indigo-900
                        px-6 py-2 text-base font-medium text-indigo-900
                        hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-200">
@@ -289,6 +331,7 @@
                        hover:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-200">
           Guardar
         </button>
+        </div>
       </div>
     </form>
   </div>
@@ -443,6 +486,126 @@
 
 
  
+  <!-- ============================= LÓGICA EDIT PROFILE ============================= -->
+  <!--
+    Guarda la cuenta en localStorage ("perfilFairview"), compartida con la página de Reservas.
+    Carga los datos al entrar, valida al guardar y actualiza el avatar/cabecera en vivo.
+  -->
+  <script>
+    (function () {
+      const KEY = "perfilFairview";
+      const form = document.querySelector("section form");
+      if (!form) return;
+
+      // Referencias a los campos del formulario
+      const f = {
+        fullName: document.getElementById("fullName"),
+        username: document.getElementById("username"),
+        email:    document.getElementById("email"),
+        matricula:document.getElementById("matricula"),
+        city:     document.getElementById("city"),
+        phone:    document.getElementById("phone"),
+        password: document.getElementById("password"),
+      };
+
+      const avatar   = document.getElementById("avatar");
+      const hdrName  = document.getElementById("hdrName");
+      const hdrEmail = document.getElementById("hdrEmail");
+      const hdrCount = document.getElementById("hdrCount");
+      const btnCancel = document.getElementById("btnCancel");
+
+      const getPerfil = () => JSON.parse(localStorage.getItem(KEY)) || {};
+
+      // Iniciales para el avatar (máximo 2 letras)
+      function iniciales(nombre) {
+        const p = (nombre || "").trim().split(/\s+/).filter(Boolean);
+        if (!p.length) return "FV";
+        return (p[0][0] + (p[1] ? p[1][0] : "")).toUpperCase();
+      }
+
+      // Refresca avatar, nombre, correo y contador de reservas
+      function pintarCabecera() {
+        const p = getPerfil();
+        hdrName.textContent  = p.fullName || "Tu nombre";
+        hdrEmail.textContent = p.email || "tucorreo@ejemplo.com";
+        avatar.textContent   = iniciales(p.fullName);
+        const reservas = JSON.parse(localStorage.getItem("reservas")) || [];
+        hdrCount.textContent = reservas.length;
+      }
+
+      // Vuelca los datos guardados en el formulario
+      function cargar() {
+        const p = getPerfil();
+        f.fullName.value  = p.fullName || "";
+        f.username.value  = p.username || "";
+        f.email.value     = p.email || "";
+        f.matricula.value = p.matricula || "";
+        f.city.value      = p.city || "";
+        f.phone.value     = p.phone || "";
+        f.password.value  = "";
+        pintarCabecera();
+      }
+
+      // Aviso flotante (toast)
+      function toast(msg, ok = true) {
+        const t = document.createElement("div");
+        t.className = `fixed bottom-6 right-6 ${ok ? "bg-indigo-900" : "bg-red-600"} text-white px-4 py-2 rounded-lg shadow-lg text-sm z-[9999]`;
+        t.textContent = msg;
+        document.body.appendChild(t);
+        setTimeout(() => t.remove(), 3000);
+      }
+
+      // Actualiza el avatar/nombre mientras se escribe
+      f.fullName.addEventListener("input", () => {
+        avatar.textContent  = iniciales(f.fullName.value);
+        hdrName.textContent = f.fullName.value || "Tu nombre";
+      });
+      f.email.addEventListener("input", () => {
+        hdrEmail.textContent = f.email.value || "tucorreo@ejemplo.com";
+      });
+
+      // Guardar
+      form.addEventListener("submit", e => {
+        e.preventDefault();
+        const fullName = f.fullName.value.trim();
+        const email    = f.email.value.trim();
+
+        if (!fullName) { toast("El nombre es obligatorio.", false); f.fullName.focus(); return; }
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!re.test(email)) { toast("Ingresa un correo válido.", false); f.email.focus(); return; }
+        if (f.phone.value.trim() && !/^[0-9+\s-]{6,}$/.test(f.phone.value.trim())) {
+          toast("El número de teléfono no es válido.", false); f.phone.focus(); return;
+        }
+
+        const perfil = {
+          ...getPerfil(),
+          fullName,
+          username:  f.username.value.trim(),
+          email,
+          matricula: f.matricula.value.trim(),
+          city:      f.city.value.trim(),
+          phone:     f.phone.value.trim(),
+        };
+        localStorage.setItem(KEY, JSON.stringify(perfil));
+        window.FairviewCloud?.upsertUsuario(fullName, email);
+        pintarCabecera();
+        toast("✅ Perfil guardado. Redirigiendo al inicio...");
+        setTimeout(() => { window.location.href = "home.html"; }, 800);
+      });
+
+      // Cancelar: descarta los cambios y vuelve al inicio
+      btnCancel?.addEventListener("click", () => { window.location.href = "home.html"; });
+
+      // Cerrar sesión: borra la cuenta y vuelve al login (conserva libros/reservas)
+      document.getElementById("btnLogout")?.addEventListener("click", () => {
+        localStorage.removeItem("perfilFairview");
+        window.location.href = "index.html";
+      });
+
+      cargar();
+    })();
+  </script>
+
   <script src="script.js"></script>
 </body>
 </html>

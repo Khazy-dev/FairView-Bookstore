@@ -1,4 +1,54 @@
 /* ===========================================================
+   CAPA DE DATOS EN LA NUBE (Cloudflare D1) — OPCIONAL
+   -----------------------------------------------------------
+   Con CLOUD_ENABLED = false el sitio funciona EXACTAMENTE igual
+   que ahora (solo localStorage). Cuando despliegues el backend
+   (functions/ + D1), pon CLOUD_ENABLED = true y se vuelve full-stack:
+   las reservas y favoritos se guardan también en la base de datos.
+   =========================================================== */
+window.FairviewCloud = (function () {
+  const CLOUD_ENABLED = false;   // <-- ponlo en true cuando tengas el backend desplegado
+
+  const emailActual = () => (JSON.parse(localStorage.getItem("perfilFairview")) || {}).email || "";
+  const api = (path, opts) => fetch(path, opts).catch(() => null);
+  const json = body => ({ method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+
+  return {
+    enabled: () => CLOUD_ENABLED,
+
+    async upsertUsuario(nombre, email) {
+      if (!CLOUD_ENABLED) return;
+      await api("/api/usuarios", json({ nombre, email }));
+    },
+    async addReserva(r) {
+      if (!CLOUD_ENABLED) return;
+      await api("/api/reservas", json({ ...r, email: emailActual() }));
+    },
+    async removeReserva(title) {
+      if (!CLOUD_ENABLED) return;
+      await api(`/api/reservas?email=${encodeURIComponent(emailActual())}&title=${encodeURIComponent(title)}`, { method: "DELETE" });
+    },
+    async addFavorito(f) {
+      if (!CLOUD_ENABLED) return;
+      await api("/api/favoritos", json({ ...f, email: emailActual() }));
+    },
+    async removeFavorito(title) {
+      if (!CLOUD_ENABLED) return;
+      await api(`/api/favoritos?email=${encodeURIComponent(emailActual())}&title=${encodeURIComponent(title)}`, { method: "DELETE" });
+    },
+    // Trae del servidor y llena localStorage (al iniciar sesión, sirve para otro dispositivo)
+    async syncDown(email) {
+      if (!CLOUD_ENABLED) return;
+      const rs = await api(`/api/reservas?email=${encodeURIComponent(email)}`);
+      const fs = await api(`/api/favoritos?email=${encodeURIComponent(email)}`);
+      if (rs && rs.ok) localStorage.setItem("reservas", JSON.stringify(await rs.json()));
+      if (fs && fs.ok) localStorage.setItem("favoritos", JSON.stringify(await fs.json()));
+    }
+  };
+})();
+
+
+/* ===========================================================
    REFERENCIAS DEL DOM PRINCIPAL
    =========================================================== */
 const main       = document.getElementById('main');
@@ -29,20 +79,68 @@ function activate(form, mode) {
 
 
 /* ===========================================================
+   CUENTA COMPARTIDA (perfil + reservas la toman de aquí)
+   =========================================================== */
+// Mezcla y guarda los datos en "perfilFairview" sin borrar lo ya guardado.
+function guardarCuenta(datos) {
+  const actual = JSON.parse(localStorage.getItem("perfilFairview")) || {};
+  const merged = { ...actual };
+  Object.entries(datos).forEach(([k, v]) => { if (v) merged[k] = v; });
+  localStorage.setItem("perfilFairview", JSON.stringify(merged));
+}
+
+// Si inicia sesión una persona DISTINTA a la dueña actual de los datos,
+// borra las reservas y favoritos del anterior para no mezclar perfiles.
+function iniciarSesionComo(email) {
+  const dueñoPrevio = localStorage.getItem("fairviewOwner");
+  if (dueñoPrevio && dueñoPrevio !== email) {
+    localStorage.removeItem("reservas");
+    localStorage.removeItem("favoritos");
+  }
+  localStorage.setItem("fairviewOwner", email);
+}
+
+
+/* ===========================================================
    LOGIN
    =========================================================== */
 try {
-  signIn?.addEventListener('submit', e => {
+  signIn?.addEventListener('submit', async e => {
     e.preventDefault();
-    const email = signIn.email?.value.trim();
-    const pass  = signIn.password?.value.trim();
+    const nombre = signIn.fullName?.value.trim();
+    const email  = signIn.email?.value.trim();
+    const pass   = signIn.password?.value.trim();
 
-    if (!email || !pass) {
-      if (loginError) loginError.textContent = 'Completá email y contraseña.';
+    // Verificación de campos
+    if (!nombre || !email || !pass) {
+      if (loginError) loginError.textContent = 'Completá nombre, email y contraseña.';
+      return;
+    }
+    if (nombre.length < 3) {
+      if (loginError) loginError.textContent = 'Ingresá tu nombre completo (mínimo 3 letras).';
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      if (loginError) loginError.textContent = 'Ingresá un correo válido.';
+      return;
+    }
+    if (pass.length < 6) {
+      if (loginError) loginError.textContent = 'La contraseña debe tener al menos 6 caracteres.';
       return;
     }
 
     if (loginError) loginError.textContent = '';
+
+    // Si es otra persona, limpia los datos del anterior antes de entrar
+    iniciarSesionComo(email);
+
+    // Toma el nombre y el correo en la cuenta para que perfil y reservas los usen
+    guardarCuenta({ fullName: nombre, email });
+
+    // Si el backend está activo: registra la cuenta y baja sus datos
+    await window.FairviewCloud?.upsertUsuario(nombre, email);
+    await window.FairviewCloud?.syncDown(email);
+
     window.location.href = 'home.html';
   });
 } catch (err) {
@@ -54,10 +152,24 @@ try {
    REGISTRO
    =========================================================== */
 try {
-  signUp?.addEventListener('submit', e => {
-    if (!signUp.checkValidity()) return;
+  signUp?.addEventListener('submit', async e => {
+    if (!signUp.checkValidity()) return;   // usa las validaciones del HTML (gmail, longitudes)
     e.preventDefault();
-    alert('Registro enviado (demo)');
+
+    const username = signUp.username?.value.trim();
+    const email    = signUp.email?.value.trim();
+
+    // Cuenta nueva: si es otra persona, arranca limpia
+    iniciarSesionComo(email);
+
+    // Toma el usuario y el correo en la cuenta compartida
+    guardarCuenta({ fullName: username, username, email });
+
+    // Si el backend está activo: registra la cuenta y baja sus datos
+    await window.FairviewCloud?.upsertUsuario(username, email);
+    await window.FairviewCloud?.syncDown(email);
+
+    window.location.href = 'home.html';
   });
 } catch (err) {
   console.warn("⚠️ Error en registro:", err.message);
@@ -270,6 +382,7 @@ try {
     const reserva = { title, author, img, isbn, date, entrega: entrega.toLocaleDateString('es-ES'), status: "Activa", category };
     reservas.push(reserva);
     localStorage.setItem("reservas", JSON.stringify(reservas));
+    window.FairviewCloud?.addReserva(reserva);
 
     document.getElementById("bookModal").classList.add("hidden");
     document.body.style.overflow = "auto";
@@ -378,4 +491,156 @@ try {
   window.updateNotifications = updateNotifications;
 } catch (err) {
   console.warn("⚠️ Error en popup de notificaciones:", err.message);
+}
+
+
+/* ===========================================================
+   BUSCADOR (filtra las tarjetas de libros)
+   =========================================================== */
+try {
+  const searchInput = document.querySelector('input[aria-label="Buscar"]');
+  const cards = Array.from(document.querySelectorAll('.book-card'));
+
+  // Normaliza texto: minúsculas y sin acentos para comparar mejor
+  const norm = s => (s || '')
+    .toString()
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+
+  // Muestra u oculta las tarjetas según lo que se escriba
+  function filterCards(term) {
+    const q = norm(term).trim();
+    let visibles = 0;
+
+    cards.forEach(card => {
+      const texto = norm([
+        card.dataset.title,
+        card.dataset.author,
+        card.dataset.isbn,
+        card.dataset.genero
+      ].join(' '));
+      const coincide = q === '' || texto.includes(q);
+      card.classList.toggle('hidden', !coincide);
+      if (coincide) visibles++;
+    });
+
+    // Mensaje cuando no hay resultados
+    let msg = document.getElementById('searchMsg');
+    const mainEl = document.querySelector('main');
+    if (q !== '' && visibles === 0) {
+      if (!msg && mainEl) {
+        msg = document.createElement('p');
+        msg.id = 'searchMsg';
+        msg.className = 'text-center text-gray-500 py-10';
+        mainEl.prepend(msg);
+      }
+      if (msg) msg.textContent = `No se encontraron libros para "${term}".`;
+    } else if (msg) {
+      msg.remove();
+    }
+  }
+
+  if (searchInput) {
+    if (cards.length > 0) {
+      // Páginas con libros (inicio y categorías): filtra mientras se escribe
+      searchInput.addEventListener('input', () => filterCards(searchInput.value));
+      searchInput.addEventListener('keydown', e => {
+        if (e.key === 'Enter') { e.preventDefault(); filterCards(searchInput.value); }
+      });
+
+      // Aplica el término que llegue por la URL (?q=) desde otra página
+      const q = new URLSearchParams(window.location.search).get('q');
+      if (q) { searchInput.value = q; filterCards(q); }
+    } else {
+      // Páginas sin libros (reservas, faqs): envía la búsqueda al inicio
+      searchInput.addEventListener('keydown', e => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          const q = searchInput.value.trim();
+          if (q) window.location.href = `home.html?q=${encodeURIComponent(q)}`;
+        }
+      });
+    }
+  }
+} catch (err) {
+  console.warn("⚠️ Error en buscador:", err.message);
+}
+
+
+/* ===========================================================
+   LISTA DE DESEADOS / FAVORITOS ("Añadir a lista")
+   =========================================================== */
+try {
+  const FAV_KEY = "favoritos";
+  const getFavs = () => JSON.parse(localStorage.getItem(FAV_KEY)) || [];
+  const setFavs = v => localStorage.setItem(FAV_KEY, JSON.stringify(v));
+
+  // Botón de favoritos del modal (es el que tiene el ícono de corazón)
+  function favBtn() {
+    return [...document.querySelectorAll("#bookModal button")]
+      .find(b => b.querySelector(".fa-heart") || /lista/i.test(b.textContent));
+  }
+
+  // Refleja en el botón si el libro abierto ya está en la lista
+  function syncFavBtn() {
+    const btn = favBtn();
+    const titleEl = document.getElementById("bmTitle");
+    if (!btn || !titleEl) return;
+    const enLista = getFavs().some(f => f.title === titleEl.innerText);
+    const icon = enLista ? "fa-solid fa-heart text-red-500" : "fa-regular fa-heart";
+    btn.innerHTML = `<i class="${icon}"></i> ${enLista ? "En tu lista" : "Añadir a lista"}`;
+  }
+
+  function favToast(msg) {
+    const t = document.createElement("div");
+    t.className = "fixed bottom-6 right-6 bg-indigo-900 text-white px-4 py-2 rounded-lg shadow-lg text-sm z-[9999]";
+    t.textContent = msg;
+    document.body.appendChild(t);
+    setTimeout(() => t.remove(), 2500);
+  }
+
+  document.addEventListener("click", e => {
+    // Al abrir un libro, sincroniza el estado del botón de la lista
+    if (e.target.closest(".book-card")) { setTimeout(syncFavBtn, 0); return; }
+
+    const btn = e.target.closest("#bookModal button");
+    if (!btn) return;
+    if (!btn.querySelector(".fa-heart") && !/lista/i.test(btn.textContent)) return;
+
+    const titleEl = document.getElementById("bmTitle");
+    if (!titleEl || !titleEl.innerText) return;
+
+    const libro = {
+      title:  titleEl.innerText,
+      author: document.getElementById("bmAuthor")?.innerText || "",
+      img:    document.getElementById("bmImage")?.src || "",
+      isbn:   document.getElementById("bmISBN")?.innerText || "",
+    };
+
+    const favs = getFavs();
+    const i = favs.findIndex(f => f.title === libro.title);
+    if (i >= 0) { favs.splice(i, 1); setFavs(favs); favToast("💔 Quitado de tu lista"); window.FairviewCloud?.removeFavorito(libro.title); }
+    else        { favs.push(libro); setFavs(favs); favToast("❤️ Añadido a tu lista"); window.FairviewCloud?.addFavorito(libro); }
+    syncFavBtn();
+  });
+} catch (err) {
+  console.warn("⚠️ Error en lista de favoritos:", err.message);
+}
+
+
+/* ===========================================================
+   RESALTA EL ENLACE DE LA PÁGINA ACTUAL EN EL MENÚ
+   =========================================================== */
+try {
+  const file = (location.pathname.split("/").pop() || "home.html").toLowerCase();
+  document.querySelectorAll('#menuList a[href]').forEach(a => {
+    const href = (a.getAttribute("href").split("/").pop() || "").toLowerCase();
+    if (href && href === file) {
+      const span = a.querySelector("span");
+      if (span) { span.classList.remove("scale-x-0"); span.classList.add("scale-x-100"); }
+    }
+  });
+} catch (err) {
+  console.warn("⚠️ Error al resaltar el enlace activo:", err.message);
 }
