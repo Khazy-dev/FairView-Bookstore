@@ -475,8 +475,8 @@ try {
       </div>
       ${
         reservas.length
-          ? `<p>📚 Tienes <b>${reservas.length}</b> libros activos.</p>
-             <p class="mt-1 text-gray-700">✨ Último: <b>${reservas.at(-1).title}</b></p>`
+          ? `<p> Tienes <b>${reservas.length}</b> libros activos.</p>
+             <p class="mt-1 text-gray-700"> Último: <b>${reservas.at(-1).title}</b></p>`
           : `<p class="text-gray-500 text-center">No tienes reservas activas</p>`
       }
     `;
