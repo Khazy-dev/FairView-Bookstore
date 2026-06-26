@@ -443,8 +443,8 @@ try {
       if (total > 0) {
         const ultima = reservasFiltradas.at(-1);
         notifContent.innerHTML = `
-          <p>📚 Tienes <b>${total}</b> libros activos</p>
-          <p>✨ Último: <b>${ultima.title}</b></p>
+          <p>Tienes <b>${total}</b> libros activos</p>
+          <p>Último: <b>${ultima.title}</b></p>
         `;
       } else {
         notifContent.innerHTML = `<p class="text-gray-500">No tienes reservas en esta categoría</p>`;
